@@ -20,7 +20,7 @@ git clone https://github.com/erykjj/jwlFusion.git
 cd jwlFusion
 nim c -d:release --out:jwlFusion src/jwlFusion.nim
 ```
-You will have a `jwlFusion` along with the required shared libraries in `lib/`.
+You will have a `jwlFusion` along with the required shared library file in `lib/`.
 
 #### Windows
 
@@ -30,7 +30,7 @@ cd jwlFusion
 nim c -d:release --out:jwlFusion.exe src/jwlFusion.nim
 copy lib\*.dll .\
 ```
-You will have a `jwlFusion.exe` along with the required shared `jwlCore.dll` and `sqlite3_64.dll`.
+You will have a `jwlFusion.exe` along with the required shared libraries: `jwlCore.dll` and `sqlite3_64.dll`.
 
 ## Usage
 
