@@ -14,7 +14,7 @@ By using this software you agree to abide by the terms of its [License](https://
 
 ## Build/compile yourself
 
-### Linux and macOS
+#### Linux and macOS
 ```
 git clone https://github.com/erykjj/jwlFusion.git
 cd jwlFusion
@@ -22,7 +22,7 @@ nim c -d:release --out:jwlFusion src/jwlFusion.nim
 ```
 You will have a `jwlFusion` along with the required shared libraries in `lib/`.
 
-### Windows
+#### Windows
 
 ```
 git clone https://github.com/erykjj/jwlFusion.git
