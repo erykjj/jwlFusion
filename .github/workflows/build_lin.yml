@@ -1,0 +1,58 @@
+name: 'Build Linux binary v1.0.0'
+
+on:
+  workflow_call:
+    inputs:
+      TAG:
+        default: 'testing'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      TAG:
+        default: 'testing'
+        required: true
+        type: string
+
+jobs:
+  linux:
+    name: Build Linux binary
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Nim
+        uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: '2.2.0'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Dependencies
+        run: |
+          nimble install -y --depsOnly
+
+      - name: Compile
+        run: |
+          mkdir -p dist
+          nim c -d:release -d:version=${{ inputs.TAG }} src/jwlFusion.nim
+          mv src/jwlFusion dist/jwlFusion
+
+      - name: Copy shared library to dist/lib
+        run: |
+          mkdir -p dist/lib
+          cp lib/libjwlCore.so dist/lib/
+
+      - name: Test binary
+        run: |
+          dist/jwlFusion --help
+
+      - name: Create .tgz archive with proper structure
+        run: |
+          tar -czvf dist/jwlFusion-linux.tgz -C dist jwlFusion lib/libjwlCore.so
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: jwlFusion-linux.tgz
+          path: dist/jwlFusion-linux.tgz

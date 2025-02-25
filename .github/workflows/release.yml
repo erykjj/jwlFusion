@@ -1,0 +1,63 @@
+name: 'Draft Release v1.0.0'
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  linux:
+    uses: ./.github/workflows/build_lin.yml
+    with:
+      TAG: ${{ github.ref_name }}
+  windows:
+    uses: ./.github/workflows/build_win.yml
+    with:
+      TAG: ${{ github.ref_name }}
+  macos:
+    uses: ./.github/workflows/build_mac.yml
+    with:
+      TAG: ${{ github.ref_name }}
+  release:
+    name: Create Release Draft
+    needs: [linux, windows, macos]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Linux binary
+        uses: actions/download-artifact@v4
+        with:
+          name: jwlFusion-linux.tgz
+          path: dist/linux
+
+      - name: Download macOS binary
+        uses: actions/download-artifact@v4
+        with:
+          name: jwlFusion-macos.tar.gz
+          path: dist/macos
+
+      - name: Download Windows zipped binary
+        uses: actions/download-artifact@v4
+        with:
+          name: jwlFusion-windows.zip
+          path: dist/windows
+
+      - name: Extract release notes
+        id: extract-release-notes
+        uses: ffurrer2/extract-release-notes@v2
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: |
+            ${{ steps.extract-release-notes.outputs.release_notes }}
+          files: |
+            dist/linux/jwlFusion-linux.tgz
+            dist/macos/jwlFusion-macos.tar.gz
+            dist/windows/jwlFusion-windows.zip

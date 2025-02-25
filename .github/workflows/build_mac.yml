@@ -1,0 +1,81 @@
+name: 'Build macOS binary v1.0.0'
+
+on:
+  workflow_call:
+    inputs:
+      TAG:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      TAG:
+        default: 'testing'
+        required: true
+        type: string
+
+jobs:
+  macos:
+    name: Build macOS binary
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Nim installation
+        id: nim-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.nimble
+            ~/.choosenim
+            bin/nim
+            bin/nimsuggest
+            bin/nimpretty
+            bin/testament
+            bin/nimgrep
+            bin/nim_dbg
+            bin/nimble
+            bin/atlas
+          key: nim-${{ runner.os }}-${{ hashFiles('**/*.nimble') }}
+          restore-keys: |
+            nim-${{ runner.os }}-
+
+      - name: Set up Nim
+        uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: '2.2.0'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Dependencies
+        run: |
+          nimble install -y --depsOnly
+
+      - name: Compile
+        run: |
+          mkdir -p dist
+          nim c -d:release -d:version=${{ inputs.TAG }} --passL:-Wl,-rpath,@executable_path/lib src/jwlFusion.nim
+          mv src/jwlFusion dist/jwlFusion
+
+      - name: Copy shared library to dist/lib
+        run: |
+          mkdir -p dist/lib
+          cp lib/libjwlCore.dylib dist/lib/
+
+      - name: Fix shared library path in binary
+        run: |
+          install_name_tool -change lib/libjwlCore.dylib @executable_path/lib/libjwlCore.dylib dist/jwlFusion
+
+      - name: Test binary
+        run: |
+          cd dist
+          ./jwlFusion --help
+
+      - name: Create .tar.gz archive with proper structure
+        run: |
+          tar -czvf dist/jwlFusion-macos.tar.gz -C dist jwlFusion lib/libjwlCore.dylib
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: jwlFusion-macos.tar.gz
+          path: dist/jwlFusion-macos.tar.gz
