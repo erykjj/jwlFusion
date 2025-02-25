@@ -1,4 +1,4 @@
-name: 'Build macOS binary v1.0.0'
+name: 'Build macOS binary v1.0.1'
 
 on:
   workflow_call:
@@ -36,9 +36,7 @@ jobs:
             bin/nim_dbg
             bin/nimble
             bin/atlas
-          key: nim-${{ runner.os }}-${{ hashFiles('**/*.nimble') }}
-          restore-keys: |
-            nim-${{ runner.os }}-
+          key: nim-${{ runner.os }}-2.2.0
 
       - name: Set up Nim
         uses: jiro4989/setup-nim-action@v2
