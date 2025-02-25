@@ -17,3 +17,4 @@ ____
 
 ____
 [Unreleased]: https://github.com/erykjj/jwlfusion
+[v0.5.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.5.0
