@@ -23,11 +23,11 @@ jobs:
         uses: ffurrer2/extract-release-notes@v2
         with:
           changelog_file: TEST.md
-          prerelease: true
+          release_notes_file: RELEASE_NOTES.md
 
       - name: Echo
         run: |
-          echo "${{ steps.extract-release-notes.outputs.release_notes }}"
+          cat RELEASE_NOTES.md
 
       - name: Create release
         uses: softprops/action-gh-release@v2
