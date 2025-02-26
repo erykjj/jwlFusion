@@ -1,0 +1,35 @@
+name: 'Test Release v1.0.0'
+
+on:
+  workflow_dispatch:
+    inputs:
+      TAG:
+        default: 'testing'
+        required: true
+        type: string
+
+jobs:
+  release:
+    name: Create Release Draft
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract release notes
+        id: extract-release-notes
+        uses: ffurrer2/extract-release-notes@v2
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          draft: true
+          body: |
+            ${{ steps.extract-release-notes.outputs.release_notes }}
+            ____
+            This is a test
+            '${{ steps.extract-release-notes.outputs.release_notes }}'
