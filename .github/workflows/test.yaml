@@ -23,6 +23,7 @@ jobs:
         uses: ffurrer2/extract-release-notes@v2
         with:
           changelog_file: TEST.md
+          prerelease: true
 
       - name: Echo
         run: |
@@ -38,4 +39,3 @@ jobs:
             ${{ steps.extract-release-notes.outputs.release_notes }}
             ____
             This is a test
-            ${{ steps.Extract-release-notes.outputs.release_notes }}
