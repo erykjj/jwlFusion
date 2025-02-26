@@ -21,6 +21,8 @@ jobs:
       - name: Extract release notes
         id: extract-release-notes
         uses: ffurrer2/extract-release-notes@v2
+
+      - name: Echo
         run: |
           echo "${{ steps.extract-release-notes.outputs.release_notes }}"
 
