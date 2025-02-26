@@ -24,6 +24,9 @@ jobs:
         with:
           changelog_file: TEST.md
 
+      - name: Debug release notes
+        run: echo "${{ steps.extract-release-notes.outputs.release_notes }}"
+
 
       - name: Create release
         uses: softprops/action-gh-release@v2
