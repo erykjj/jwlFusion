@@ -23,13 +23,14 @@ jobs:
         uses: ffurrer2/extract-release-notes@v2
         with:
           changelog_file: TEST.md
-          release_notes_file: RELEASE_NOTES.md
 
       - name: Echo
         run: |
-          cat RELEASE_NOTES.md
+          echo "${{ steps.extract-release-notes.outputs.release_notes }}"
 
       - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ inputs.TAG }}
