@@ -22,7 +22,7 @@ jobs:
         id: extract-release-notes
         uses: ffurrer2/extract-release-notes@v2
         with:
-          changelog_file: TEST.md
+          release_notes_file: ${{ github.workspace }}-CHANGELOG.txt
 
       - name: Debug release notes
         run: echo "${{ steps.extract-release-notes.outputs.release_notes }}"
@@ -34,7 +34,5 @@ jobs:
           tag_name: ${{ inputs.TAG }}
           name: ${{ inputs.TAG }}
           draft: true
-          body: |
-            ${{ steps.extract-release-notes.outputs.release_notes }}
-            ____
-            This is a test
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
+
