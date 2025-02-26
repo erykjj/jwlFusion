@@ -3,12 +3,17 @@
 ## Unreleased
 
 ### Added
+- New feature XYZ
 
 ### Changed
+- Improved performance
 
 ### Fixed
+- Bug fixes
 
 ### Removed
+- Deprecated feature ABC
+
 ____
 ## [v0.5.1] - 2025-02-25
 
