@@ -1,6 +1,6 @@
 # jwlFusion Changelog
 
-## [Unreleased]
+## Unreleased
 
 ### Added
 
@@ -20,6 +20,6 @@ ____
 - Initial release (beta)
 
 ____
-[Unreleased]: https://github.com/erykjj/jwlfusion
+[Unreleased]: https://github.com/erykjj/jwlFusion
 [v0.5.1]:https://github.com/erykjj/jwlFusion/releases/tag/v0.5.1
 [v0.5.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.5.0
