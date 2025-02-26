@@ -10,7 +10,7 @@ on:
 
 jobs:
   release:
-    name: Create Release Draft
+    name: Create release draft
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -20,15 +20,18 @@ jobs:
 
       - name: Extract release notes
         id: extract-release-notes
-        uses: ffurrer2/extract-release-notes@v2.2.0
+        uses: ffurrer2/extract-release-notes@v2
+        run: |
+          echo "${{ steps.extract-release-notes.outputs.release_notes }}"
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: ${{ github.ref_name }}
+          tag_name: ${{ inputs.TAG }}
+          name: ${{ inputs.TAG }}
           draft: true
           body: |
             ${{ steps.extract-release-notes.outputs.release_notes }}
             ____
             This is a test
+            ${{ steps.Extract-release-notes.outputs.release_notes }}
