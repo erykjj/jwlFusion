@@ -4,6 +4,8 @@
 
 Commandline/terminal **merge utility** for `.jwlibrary` backups created by the *JW Library* app[^1]
 
+Keep in mind that this is at BETA (testing) stage.
+
 By using this software you agree to abide by the terms of its [License](https://github.com/erykjj/jwlFusion#License-1-ov-file).
 
 ## Downloads
