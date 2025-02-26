@@ -10,6 +10,10 @@
 
 ### Removed
 
+## Another entry
+
+Another record
+Another line
 
 ## [v0.5.1] - 2025-02-25
 
