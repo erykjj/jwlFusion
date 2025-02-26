@@ -20,7 +20,7 @@ jobs:
 
       - name: Extract release notes
         id: extract-release-notes
-        uses: ffurrer2/extract-release-notes@v2
+        uses: ffurrer2/extract-release-notes@v2.2.0
 
       - name: Create release
         uses: softprops/action-gh-release@v2
@@ -32,4 +32,3 @@ jobs:
             ${{ steps.extract-release-notes.outputs.release_notes }}
             ____
             This is a test
-            '${{ steps.extract-release-notes.outputs.release_notes }}'
