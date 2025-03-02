@@ -11,6 +11,9 @@
 ### Removed
 
 ____
+## [v0.5.2] - 2025-03-02
+
+- Update jwlCore
 
 ## [v0.5.1] - 2025-02-25
 
@@ -21,5 +24,6 @@ ____
 - Initial release (beta)
 
 ____
+[v0.5.2]:https://github.com/erykjj/jwlFusion/releases/tag/v0.5.2
 [v0.5.1]:https://github.com/erykjj/jwlFusion/releases/tag/v0.5.1
 [v0.5.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.5.0
