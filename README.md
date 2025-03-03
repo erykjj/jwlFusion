@@ -1,6 +1,7 @@
 <img src="res/dbFusion_wide.png" width=100%>
 <img src="res/logo_beta.png">
 
+# PLEASE CREATE AN ISSUE AND REPORT IF YOU WERE ABLE TO RUN THE UTILITY OR NOT, AND WHAT OS AND VERSION OF THE BINARY YOU TRIED. THANK YOU!
 
 Commandline/terminal **merge utility** for `.jwlibrary` backups created by the *JW Library* app[^1]
 

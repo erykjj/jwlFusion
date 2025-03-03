@@ -23,7 +23,7 @@ when defined(windows):
   const libName = "jwlCore.dll"
 elif defined(macosx):
   const libName = joinPath("lib", "libjwlCore.dylib")
-else:
+else: # linux
   const libName = joinPath("lib", "libjwlCore.so")
 
 proc mergeDatabase*(path1, path2: cstring) {.cdecl, dynlib: libName, importc.}
