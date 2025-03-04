@@ -40,7 +40,6 @@ jobs:
           nim c -d:linux -d:amd64 -d:strip -d:release --out:dist/jwlFusion_linux_x86_64 src/jwlFusion.nim
           nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target aarch64-linux-gnu" --passl:"-target aarch64-linux-gnu" --forceBuild:on --os:linux --cpu:arm64 -d:linux -d:arm64 -d:strip -d:release --out:dist/jwlFusion_linux_arm64 src/jwlFusion.nim
           nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target x86_64-windows" --passl:"-target x86_64-windows" --forceBuild:on --os:windows -d:windows -d:amd64 -d:strip -d:release --out:dist/jwlFusion_amd64.exe src/jwlFusion.nim
-          nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target aarch64-windows-gnu" --passl:"-target aarch64-windows-gnu" --forceBuild:on --os:windows -d:windows -d:arm64 -d:strip -d:release --out:dist/jwlFusion_arm64.exe src/jwlFusion.nim
 
       - name: Copy shared library to dist/lib
         run: |
