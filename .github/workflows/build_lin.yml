@@ -31,6 +31,7 @@ jobs:
       - name: Install Dependencies
         run: |
           nimble install -y --depsOnly
+          apt install zig
           nimble install zigcc
 
       - name: Compile
