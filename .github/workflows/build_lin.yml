@@ -31,7 +31,7 @@ jobs:
       - name: Install Dependencies
         run: |
           nimble install -y --depsOnly
-          snap install zig --classic --beta
+          sudo snap install zig --classic --beta
           nimble install zigcc
 
       - name: Compile
