@@ -1,4 +1,4 @@
-name: 'Build Linux binary v1.0.1'
+name: 'Linux and Windows v1.0.2'
 
 on:
   workflow_call:
@@ -16,7 +16,7 @@ on:
 
 jobs:
   linux:
-    name: Build Linux binary
+    name: Build for Linux and Windows
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,7 +28,7 @@ jobs:
           nim-version: '2.2.0'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Dependencies
+      - name: Install dependencies and compiler
         run: |
           nimble install -y --depsOnly
           sudo snap install zig --classic --beta
@@ -41,22 +41,30 @@ jobs:
           nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target aarch64-linux-gnu" --passl:"-target aarch64-linux-gnu" --forceBuild:on --os:linux --cpu:arm64 -d:linux -d:arm64 -d:strip -d:release --out:dist/jwlFusion_linux_arm64 src/jwlFusion.nim
           nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target x86_64-windows" --passl:"-target x86_64-windows" --forceBuild:on --os:windows -d:windows -d:amd64 -d:strip -d:release --out:dist/jwlFusion_amd64.exe src/jwlFusion.nim
 
-      - name: Copy shared library to dist/lib
+      - name: Copy shared libraries to dist/lib
         run: |
           mkdir -p dist/lib
           cp lib/libjwlCore*.so dist/lib/
+          cp lib/jwlCore.dll dist/lib/
 
-      - name: Test binary
+      - name: Create archives
         run: |
-          dist/jwlFusion_linux_x86_64 --help
+          tar -czvf dist/jwlFusion_linux_arm64.tgz -C dist jwlFusion_linux_arm64 lib/libjwlCore-arm64.so
+          tar -czvf dist/jwlFusion_linux_x86_64.tgz -C dist jwlFusion_linux_x86_64 lib/libjwlCore-x86_64.so
+          zip -j dist/jwlFusion_windows_amd64.zip dist/jwlFusion.exe dist/lib/jwlCore.dll
 
-      - name: Create .tgz archive with proper structure
-        run: |
-          ls dist/*
-          tar -czvf dist/jwlFusion-linux.tgz -C dist jwlFusion_amd64.exe jwlFusion_linux_arm64 jwlFusion_linux_x86_64 lib/libjwlCore-arm64.so lib/libjwlCore-x86_64.so
-
-      - name: Upload binary
+      - name: Upload jwlFusion_linux_arm64.tgz
         uses: actions/upload-artifact@v4
         with:
-          name: jwlFusion-linux.tgz
-          path: dist/jwlFusion-linux.tgz
+          name: jwlFusion_linux_arm64.tgz
+          path: dist/jwlFusion_linux_arm64.tgz
+      - name: Upload jwlFusion_linux_x86_64.tgz
+        uses: actions/upload-artifact@v4
+        with:
+          name: jwlFusion_linux_x86_64.tgz
+          path: dist/jwlFusion_linux_x86_64.tgz
+      - name: Upload jwlFusion_windows_amd64.zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: jwlFusion_windows_amd64.zip
+          path: dist/jwlFusion_windows_amd64.zip
