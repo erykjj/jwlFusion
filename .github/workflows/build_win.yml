@@ -35,7 +35,7 @@ jobs:
       - name: Compile
         run: |
           mkdir -p dist
-          nim c -d:windows -d:amd64 -d:strip -d:release --out:jwlFusion_amd64.exe src/jwlFusion.nim
+          nim c -d:windows -d:amd64 -d:strip -d:release --out:dist/jwlFusion_amd64.exe src/jwlFusion.nim
           mv src/jwlFusion*.exe dist/
 
       - name: Copy DLLs to dist
