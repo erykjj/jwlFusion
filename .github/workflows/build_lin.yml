@@ -52,7 +52,7 @@ jobs:
 
       - name: Create .tgz archive with proper structure
         run: |
-          tar -czvf dist/jwlFusion-linux.tgz -C dist/jwlFusion_* lib/libjwlCore*.so
+          tar -czvf dist/jwlFusion-linux.tgz -C dist/jwlFusion_* -C ../lib libjwlCore*.so
 
       - name: Upload binary
         uses: actions/upload-artifact@v4
