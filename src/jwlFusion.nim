@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.5.2"
+  Version = "0.6.0"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -18,17 +18,30 @@ import
   zippy/ziparchives,
   zippy
 
+const libName =
+  when defined(windows):
+    when defined(amd64):
+      "jwlCore-amd64.dll"
+    elif defined(arm64):
+      "jwlCore-arm64.dll"
+    else:
+      {.error: "Unsupported Windows architecture".}
+  elif defined(linux):
+    when defined(amd64):
+      joinPath("lib", "libjwlCore-x86_64.so")
+    elif defined(arm64):
+      joinPath("lib", "libjwlCore-arm64.so")
+    else:
+      {.error: "Unsupported Linux architecture".}
+  elif defined(macosx):
+    joinPath("lib", "libjwlCore.dylib")
+  else:
+    {.error: "Unsupported OS".}
 
-when defined(windows):
-  const libName = "jwlCore.dll"
-elif defined(macosx):
-  const libName = joinPath("lib", "libjwlCore.dylib")
-else: # linux
-  const libName = joinPath("lib", "libjwlCore.so")
 
-proc mergeDatabase*(path1, path2: cstring) {.cdecl, dynlib: libName, importc.}
-proc getCoreVersion*(): cstring {.cdecl, dynlib: libName, importc.}
-proc getZuluTime*(): cstring {.cdecl, dynlib: libName, importc.}
+proc mergeDatabase(path1, path2: cstring) {.cdecl, dynlib: libName, importc.}
+proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
+proc getZuluTime(): cstring {.cdecl, dynlib: libName, importc.}
 
 
 var fileCounter: int = 0
@@ -165,7 +178,7 @@ when isMainModule:
     echo appHelp
     quit(0)
   if showVersion:
-    echo &"\n{App} {Maturity} v{Version}\n{$jwlCore}\n© 2025 Eryk J.\n"
+    echo &"\n{App} {Maturity} v{Version}\n{$jwlCore}: {libName}\n© 2025 Eryk J.\n"
     quit(0)
 
   if inputFiles.len < 2:
