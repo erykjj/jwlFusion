@@ -1,4 +1,4 @@
-name: 'Build macOS binary v1.0.1'
+name: 'macOS v1.0.2'
 
 on:
   workflow_call:
@@ -16,7 +16,10 @@ on:
 jobs:
   macos:
     name: Build macOS binary
-    runs-on: macos-13
+    runs-on: macos-14
+    strategy:
+      matrix:
+        architecture: [x86_64, arm64]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -48,32 +51,30 @@ jobs:
         run: |
           nimble install -y --depsOnly
 
-      - name: Compile
+      - name: Clear dist directory
         run: |
+          rm -rf dist/*
           mkdir -p dist
-          nim c -d:release -d:version=${{ inputs.TAG }} --passL:-Wl,-rpath,@executable_path/lib src/jwlFusion.nim
-          mv src/jwlFusion dist/jwlFusion
+          mkdir -p dist/lib
+
+      - name: Compile for ${{ matrix.architecture }}
+        run: |
+          nim c -d:strip -d:release --passL:-Wl,-rpath,@executable_path/lib --out:dist/jwlFusion src/jwlFusion.nim
 
       - name: Copy shared library to dist/lib
         run: |
-          mkdir -p dist/lib
-          cp lib/libjwlCore.dylib dist/lib/
+          cp lib/libjwlCore_${{ matrix.architecture }}.dylib dist/lib/libjwlCore.dylib
 
       - name: Fix shared library path in binary
         run: |
           install_name_tool -change lib/libjwlCore.dylib @executable_path/lib/libjwlCore.dylib dist/jwlFusion
 
-      - name: Test binary
+      - name: Create .tar.gz archive for ${{ matrix.architecture }}
         run: |
-          cd dist
-          ./jwlFusion --help
+          tar -czvf dist/jwlFusion_macos_${{ matrix.architecture }}.tar.gz -C dist jwlFusion lib/libjwlCore.dylib
 
-      - name: Create .tar.gz archive with proper structure
-        run: |
-          tar -czvf dist/jwlFusion-macos.tar.gz -C dist jwlFusion lib/libjwlCore.dylib
-
-      - name: Upload binary
+      - name: Upload binary for ${{ matrix.architecture }}
         uses: actions/upload-artifact@v4
         with:
-          name: jwlFusion-macos.tar.gz
-          path: dist/jwlFusion-macos.tar.gz
+          name: jwlFusion_macos_${{ matrix.architecture }}.tar.gz
+          path: dist/jwlFusion_macos_${{ matrix.architecture }}.tar.gz
