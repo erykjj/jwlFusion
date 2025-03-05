@@ -15,8 +15,8 @@ on:
         type: string
 
 jobs:
-  linux:
-    name: Build for Linux and Windows
+  setup:
+    name: Set up environment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,36 +34,69 @@ jobs:
           sudo snap install zig --classic --beta
           nimble install zigcc
 
-      - name: Compile
+  linux_x86_64:
+    name: Build for Linux x86_64
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Clear dist directory
         run: |
+          rm -rf dist/*
           mkdir -p dist
-          nim c -d:linux -d:amd64 -d:strip -d:release --out:dist/jwlFusion_linux_x86_64 src/jwlFusion.nim
-          nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target aarch64-linux-gnu" --passl:"-target aarch64-linux-gnu" --forceBuild:on --os:linux --cpu:arm64 -d:linux -d:arm64 -d:strip -d:release --out:dist/jwlFusion_linux_arm64 src/jwlFusion.nim
-          nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target x86_64-windows" --passl:"-target x86_64-windows" --forceBuild:on --os:windows -d:windows -d:amd64 -d:strip -d:release --out:dist/jwlFusion_amd64.exe src/jwlFusion.nim
-
-      - name: Copy shared libraries to dist/lib
-        run: |
           mkdir -p dist/lib
-          cp lib/libjwlCore*.so dist/lib/
-          cp lib/jwlCore.dll dist/lib/
 
-      - name: Create archives
+      - name: Compile and package
         run: |
-          tar -czvf dist/jwlFusion_linux_arm64.tgz -C dist jwlFusion_linux_arm64 lib/libjwlCore-arm64.so
-          tar -czvf dist/jwlFusion_linux_x86_64.tgz -C dist jwlFusion_linux_x86_64 lib/libjwlCore-x86_64.so
-          zip -j dist/jwlFusion_windows_amd64.zip dist/jwlFusion.exe dist/lib/jwlCore.dll
+          nim c -d:linux -d:strip -d:release --out:dist/jwlFusion src/jwlFusion.nim
+          cp lib/libjwlCore-x86_64.so dist/lib/libjwlCore.so
+          tar -czvf dist/jwlFusion_linux_x86_64.tgz -C dist jwlFusion lib/libjwlCore.so
 
-      - name: Upload jwlFusion_linux_arm64.tgz
-        uses: actions/upload-artifact@v4
-        with:
-          name: jwlFusion_linux_arm64.tgz
-          path: dist/jwlFusion_linux_arm64.tgz
-      - name: Upload jwlFusion_linux_x86_64.tgz
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: jwlFusion_linux_x86_64.tgz
           path: dist/jwlFusion_linux_x86_64.tgz
-      - name: Upload jwlFusion_windows_amd64.zip
+
+  linux_arm64:
+    name: Build for Linux ARM64
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Clear dist directory
+        run: |
+          rm -rf dist/*
+          mkdir -p dist
+          mkdir -p dist/lib
+
+      - name: Compile and package
+        run: |
+          nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target aarch64-linux-gnu" --passl:"-target aarch64-linux-gnu" --forceBuild:on --os:linux --cpu:arm64 -d:linux -d:strip -d:release --out:dist/jwlFusion src/jwlFusion.nim
+          cp lib/libjwlCore-arm64.so dist/lib/libjwlCore.so
+          tar -czvf dist/jwlFusion_linux_arm64.tgz -C dist jwlFusion lib/libjwlCore.so
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jwlFusion_linux_arm64.tgz
+          path: dist/jwlFusion_linux_arm64.tgz
+
+  windows_amd64:
+    name: Build for Windows AMD64
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Clear dist directory
+        run: |
+          rm -rf dist/*
+          mkdir -p dist
+
+      - name: Compile and package
+        run: |
+          nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target x86_64-windows" --passl:"-target x86_64-windows" --forceBuild:on --os:windows -d:windows -d:strip -d:release --out:dist/jwlFusion.exe src/jwlFusion.nim
+          cp lib/jwlCore.dll dist/
+          zip -j dist/jwlFusion_windows_amd64.zip dist/jwlFusion.exe dist/jwlCore.dll
+
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: jwlFusion_windows_amd64.zip
