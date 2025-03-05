@@ -1,0 +1,65 @@
+name: 'macOS v1.0.2'
+
+on:
+  workflow_call:
+    inputs:
+      TAG:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      TAG:
+        default: 'testing'
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: Build for macOS
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Nim installation
+        id: nim-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.nimble
+            ~/.choosenim
+            bin/nim
+            bin/nimsuggest
+            bin/nimpretty
+            bin/testament
+            bin/nimgrep
+            bin/nim_dbg
+            bin/nimble
+            bin/atlas
+          key: nim-${{ runner.os }}-2.2.0
+
+      - name: Set up Nim
+        uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: '2.2.0'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Dependencies
+        run: |
+          nimble install -y --depsOnly
+          rm -rf dist/*
+          mkdir -p dist
+          mkdir -p dist/lib
+
+      - name: Compile and package
+        run: |
+          nim c -d:macos -d:strip -d:release --passL:-Wl,-rpath,@executable_path/lib --out:dist/jwlFusion src/jwlFusion.nim
+          cp lib/libjwlCore-x86_64.dylib dist/lib/libjwlCore.dylib
+          install_name_tool -change lib/libjwlCore.dylib @executable_path/lib/libjwlCore.dylib dist/jwlFusion
+          tar -czvf dist/jwlFusion_macos_x86_64.tar.gz -C dist jwlFusion lib/libjwlCore.dylib
+
+      - name: Upload binary for x86_64
+        uses: actions/upload-artifact@v4
+        with:
+          name: jwlFusion_macos_x86_64.tar.gz
+          path: dist/jwlFusion_macos_x86_64.tar.gz

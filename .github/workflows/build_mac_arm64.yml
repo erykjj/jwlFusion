@@ -47,30 +47,6 @@ jobs:
       - name: Install Dependencies
         run: |
           nimble install -y --depsOnly
-          brew install zig
-          nimble install zigcc
-
-      - name: Clear dist directory
-        run: |
-          rm -rf dist/*
-          mkdir -p dist
-          mkdir -p dist/lib
-
-      - name: Compile and package
-        run: |
-          nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target x86_64-macos-gnu" --passl:"-target x86_64-macos-gnu" --forceBuild:on --os:macos --cpu:amd64 -d:macos -d:strip -d:release --out:dist/jwlFusion src/jwlFusion.nim
-          cp lib/libjwlCore-x86_64.dylib dist/lib/libjwlCore.dylib
-          install_name_tool -change lib/libjwlCore.dylib @executable_path/lib/libjwlCore.dylib dist/jwlFusion
-          tar -czvf dist/jwlFusion_macos_x86_64.tar.gz -C dist jwlFusion lib/libjwlCore.dylib
-
-      - name: Upload binary for x86_64
-        uses: actions/upload-artifact@v4
-        with:
-          name: jwlFusion_macos_x86_64.tar.gz
-          path: dist/jwlFusion_macos_x86_64.tar.gz
-
-      - name: Clear dist directory
-        run: |
           rm -rf dist/*
           mkdir -p dist
           mkdir -p dist/lib
