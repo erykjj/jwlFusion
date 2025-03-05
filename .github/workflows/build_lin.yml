@@ -15,8 +15,8 @@ on:
         type: string
 
 jobs:
-  setup:
-    name: Set up environment
+  build:
+    name: Build for Linux and Windows
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,11 +34,6 @@ jobs:
           sudo snap install zig --classic --beta
           nimble install zigcc
 
-  linux_x86_64:
-    name: Build for Linux x86_64
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - name: Clear dist directory
         run: |
           rm -rf dist/*
@@ -57,11 +52,6 @@ jobs:
           name: jwlFusion_linux_x86_64.tgz
           path: dist/jwlFusion_linux_x86_64.tgz
 
-  linux_arm64:
-    name: Build for Linux ARM64
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - name: Clear dist directory
         run: |
           rm -rf dist/*
@@ -80,11 +70,6 @@ jobs:
           name: jwlFusion_linux_arm64.tgz
           path: dist/jwlFusion_linux_arm64.tgz
 
-  windows_amd64:
-    name: Build for Windows AMD64
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - name: Clear dist directory
         run: |
           rm -rf dist/*
