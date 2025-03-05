@@ -20,7 +20,7 @@ jobs:
       TAG: ${{ github.ref_name }}
   release:
     name: Create release draft
-    needs: [linux, macos]
+    needs: [linux, macos-arm64, macos-x86_64]
     runs-on: ubuntu-latest
     outputs:
       changelog-section: ${{ steps.extract.outputs.changelog_section }}
