@@ -18,26 +18,13 @@ import
   zippy/ziparchives,
   zippy
 
-const libName =
-  when defined(windows):
-    when defined(amd64):
-      "jwlCore-amd64.dll"
-    elif defined(arm64):
-      "jwlCore-arm64.dll"
-    else:
-      {.error: "Unsupported Windows architecture".}
-  elif defined(linux):
-    when defined(amd64):
-      joinPath("lib", "libjwlCore-x86_64.so")
-    elif defined(arm64):
-      joinPath("lib", "libjwlCore-arm64.so")
-    else:
-      {.error: "Unsupported Linux architecture".}
-  elif defined(macosx):
-    joinPath("lib", "libjwlCore.dylib")
-  else:
-    {.error: "Unsupported OS".}
 
+when defined(windows):
+  const libName = "jwlCore.dll"
+elif defined(macosx):
+  const libName = joinPath("lib", "libjwlCore.dylib")
+else: # linux
+  const libName = joinPath("lib", "libjwlCore.so")
 
 proc mergeDatabase(path1, path2: cstring) {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
