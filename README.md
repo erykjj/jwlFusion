@@ -11,29 +11,14 @@ By using this software you agree to abide by the terms of its [License](https://
 
 ## Downloads
 
-- [Linux](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion-linux.tgz)
-- [macOS 13/14](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion-macos.tar.gz)
-- [Windows 10/11](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion-windows.zip)
+- [Linux_x86_64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_linux_x86_64.tgz)
+- [Linux (arm64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_linux_arm64.tgz)
 
-## Build/compile yourself
+- [macOS (x86_64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_macos_x86_64.tar.gz)
+- [macOS (arm64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_macos_arm64.tar.gz)
 
-#### Linux and macOS
-```
-git clone https://github.com/erykjj/jwlFusion.git
-cd jwlFusion
-nim c -d:release --out:jwlFusion src/jwlFusion.nim
-```
-You will have a `jwlFusion` executable binary, and the required shared library file: `lib/libjwlCore.so` for Linux or `lib/libjwlCore.dylib` for macOS.
+- [Windows (amd64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_windows_amd64.zip)
 
-#### Windows
-
-```
-git clone https://github.com/erykjj/jwlFusion.git
-cd jwlFusion
-nim c -d:release --out:jwlFusion.exe src/jwlFusion.nim
-copy lib\*.dll .\
-```
-You will have a `jwlFusion.exe` executable along with the required shared libraries: `jwlCore.dll` and `sqlite3_64.dll`.
 
 ## Usage
 
