@@ -68,7 +68,7 @@ jobs:
             ${{ steps.extract.outputs.changelog_section }}
           files: |
             dist/jwlFusion_linux_x86_64.tgz
-            dist/jwlFusion_linux_arm64.tgz
+            dist/jwlFusion_linux_aarch64.tgz
             dist/jwlFusion_macos_x86_64.tar.gz
             dist/jwlFusion_macos_arm64.tar.gz
             dist/jwlFusion_windows_amd64.zip

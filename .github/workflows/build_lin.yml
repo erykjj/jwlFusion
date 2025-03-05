@@ -60,15 +60,15 @@ jobs:
 
       - name: Compile and package
         run: |
-          nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target aarch64-linux-gnu" --passl:"-target aarch64-linux-gnu" --forceBuild:on --os:linux --cpu:arm64 -d:linux -d:strip -d:release --out:dist/jwlFusion src/jwlFusion.nim
-          cp lib/libjwlCore-arm64.so dist/lib/libjwlCore.so
-          tar -czvf dist/jwlFusion_linux_arm64.tgz -C dist jwlFusion lib/libjwlCore.so
+          nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target aarch64-linux-gnu" --passl:"-target aarch64-linux-gnu" --forceBuild:on --os:linux --cpu:aarch64 -d:linux -d:strip -d:release --out:dist/jwlFusion src/jwlFusion.nim
+          cp lib/libjwlCore-aarch64.so dist/lib/libjwlCore.so
+          tar -czvf dist/jwlFusion_linux_aarch64.tgz -C dist jwlFusion lib/libjwlCore.so
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: jwlFusion_linux_arm64.tgz
-          path: dist/jwlFusion_linux_arm64.tgz
+          name: jwlFusion_linux_aarch64.tgz
+          path: dist/jwlFusion_linux_aarch64.tgz
 
       - name: Clear dist directory
         run: |

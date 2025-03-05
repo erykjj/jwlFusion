@@ -14,9 +14,9 @@ on:
         type: string
 
 jobs:
-  setup:
-    name: Set up environment
-    runs-on: macos-14
+  build:
+    name: Build for macOS
+    runs-on: macos-15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,12 +47,9 @@ jobs:
       - name: Install Dependencies
         run: |
           nimble install -y --depsOnly
+          brew install zig
+          nimble install zigcc
 
-  build_x86_64:
-    name: Build for macOS x86_64
-    runs-on: macos-14
-    needs: setup
-    steps:
       - name: Clear dist directory
         run: |
           rm -rf dist/*
@@ -61,7 +58,7 @@ jobs:
 
       - name: Compile and package
         run: |
-          nim c -d:macos -d:strip -d:release --passL:-Wl,-rpath,@executable_path/lib --out:dist/jwlFusion src/jwlFusion.nim
+          nim c --out:dist/jwlFusion --cpu:amd64 --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target x86_64-macos" --passl:"-target x86_64-macos" -d:strip -d:release src/jwlFusion.nim
           cp lib/libjwlCore-x86_64.dylib dist/lib/libjwlCore.dylib
           install_name_tool -change lib/libjwlCore.dylib @executable_path/lib/libjwlCore.dylib dist/jwlFusion
           tar -czvf dist/jwlFusion_macos_x86_64.tar.gz -C dist jwlFusion lib/libjwlCore.dylib
@@ -72,11 +69,6 @@ jobs:
           name: jwlFusion_macos_x86_64.tar.gz
           path: dist/jwlFusion_macos_x86_64.tar.gz
 
-  build_arm64:
-    name: Build for macOS arm64
-    runs-on: macos-14
-    needs: setup
-    steps:
       - name: Clear dist directory
         run: |
           rm -rf dist/*
