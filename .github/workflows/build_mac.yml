@@ -64,13 +64,13 @@ jobs:
           nim c -d:macos -d:strip -d:release --passL:-Wl,-rpath,@executable_path/lib --out:dist/jwlFusion src/jwlFusion.nim
           cp lib/libjwlCore-x86_64.dylib dist/lib/libjwlCore.dylib
           install_name_tool -change lib/libjwlCore.dylib @executable_path/lib/libjwlCore.dylib dist/jwlFusion
-          tar -czvf dist/jwlFusion_macos_x86_64.tgz -C dist jwlFusion lib/libjwlCore.dylib
+          tar -czvf dist/jwlFusion_macos_x86_64.tar.gz -C dist jwlFusion lib/libjwlCore.dylib
 
       - name: Upload binary for x86_64
         uses: actions/upload-artifact@v4
         with:
-          name: jwlFusion_macos_x86_64.tgz
-          path: dist/jwlFusion_macos_x86_64.tgz
+          name: jwlFusion_macos_x86_64.tar.gz
+          path: dist/jwlFusion_macos_x86_64.tar.gz
 
   build_arm64:
     name: Build for macOS arm64
@@ -88,10 +88,10 @@ jobs:
           nim c -d:macos -d:strip -d:release --passL:-Wl,-rpath,@executable_path/lib --out:dist/jwlFusion src/jwlFusion.nim
           cp lib/libjwlCore-arm64.dylib dist/lib/libjwlCore.dylib
           install_name_tool -change lib/libjwlCore.dylib @executable_path/lib/libjwlCore.dylib dist/jwlFusion
-          tar -czvf dist/jwlFusion_macos_arm64.tgz -C dist jwlFusion lib/libjwlCore.dylib
+          tar -czvf dist/jwlFusion_macos_arm64.tar.gz -C dist jwlFusion lib/libjwlCore.dylib
 
       - name: Upload binary for arm64
         uses: actions/upload-artifact@v4
         with:
-          name: jwlFusion_macos_arm64.tgz
-          path: dist/jwlFusion_macos_arm64.tgz
+          name: jwlFusion_macos_arm64.tar.gz
+          path: dist/jwlFusion_macos_arm64.tar.gz
