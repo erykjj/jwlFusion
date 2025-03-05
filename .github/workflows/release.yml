@@ -1,4 +1,4 @@
-name: 'Draft Release v1.0.1'
+name: 'Draft Release v1.0.2'
 
 on:
   push:
@@ -10,17 +10,13 @@ jobs:
     uses: ./.github/workflows/build_lin.yml
     with:
       TAG: ${{ github.ref_name }}
-  windows:
-    uses: ./.github/workflows/build_win.yml
-    with:
-      TAG: ${{ github.ref_name }}
   macos:
     uses: ./.github/workflows/build_mac.yml
     with:
       TAG: ${{ github.ref_name }}
   release:
     name: Create release draft
-    needs: [linux, windows, macos]
+    needs: [linux, macos]
     runs-on: ubuntu-latest
     outputs:
       changelog-section: ${{ steps.extract.outputs.changelog_section }}
@@ -30,23 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download Linux binary
+      - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          name: jwlFusion-linux.tgz
-          path: dist/linux
-
-      - name: Download macOS binary
-        uses: actions/download-artifact@v4
-        with:
-          name: jwlFusion-macos.tar.gz
-          path: dist/macos
-
-      - name: Download Windows zipped binary
-        uses: actions/download-artifact@v4
-        with:
-          name: jwlFusion-windows.zip
-          path: dist/windows
+          path: dist
 
       - name: Extract section from changelog
         id: extract
@@ -84,6 +67,8 @@ jobs:
           body: |
             ${{ steps.extract.outputs.changelog_section }}
           files: |
-            dist/linux/jwlFusion-linux.tgz
-            dist/macos/jwlFusion-macos.tar.gz
-            dist/windows/jwlFusion-windows.zip
+            dist/jwlFusion_linux_x86_64.tgz
+            dist/jwlFusion_linux_arm64.tgz
+            dist/jwlFusion_macos_x86_64.tar.gz
+            dist/jwlFusion_macos_arm64.tar.gz
+            dist/jwlFusion_windows_amd64.zip
