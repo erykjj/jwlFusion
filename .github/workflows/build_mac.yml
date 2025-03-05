@@ -14,12 +14,9 @@ on:
         type: string
 
 jobs:
-  macos:
-    name: Build macOS binary
+  setup:
+    name: Set up environment
     runs-on: macos-14
-    strategy:
-      matrix:
-        architecture: [x86_64, arm64]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,30 +48,50 @@ jobs:
         run: |
           nimble install -y --depsOnly
 
+  build_x86_64:
+    name: Build for macOS x86_64
+    runs-on: macos-14
+    needs: setup
+    steps:
       - name: Clear dist directory
         run: |
           rm -rf dist/*
           mkdir -p dist
           mkdir -p dist/lib
 
-      - name: Compile for ${{ matrix.architecture }}
+      - name: Compile and package
         run: |
-          nim c -d:strip -d:release --passL:-Wl,-rpath,@executable_path/lib --out:dist/jwlFusion src/jwlFusion.nim
-
-      - name: Copy shared library to dist/lib
-        run: |
-          cp lib/libjwlCore_${{ matrix.architecture }}.dylib dist/lib/libjwlCore.dylib
-
-      - name: Fix shared library path in binary
-        run: |
+          nim c -d:macos -d:strip -d:release --passL:-Wl,-rpath,@executable_path/lib --out:dist/jwlFusion src/jwlFusion.nim
+          cp lib/libjwlCore-x86_64.dylib dist/lib/libjwlCore.dylib
           install_name_tool -change lib/libjwlCore.dylib @executable_path/lib/libjwlCore.dylib dist/jwlFusion
+          tar -czvf dist/jwlFusion_macos_x86_64.tgz -C dist jwlFusion lib/libjwlCore.dylib
 
-      - name: Create .tar.gz archive for ${{ matrix.architecture }}
-        run: |
-          tar -czvf dist/jwlFusion_macos_${{ matrix.architecture }}.tar.gz -C dist jwlFusion lib/libjwlCore.dylib
-
-      - name: Upload binary for ${{ matrix.architecture }}
+      - name: Upload binary for x86_64
         uses: actions/upload-artifact@v4
         with:
-          name: jwlFusion_macos_${{ matrix.architecture }}.tar.gz
-          path: dist/jwlFusion_macos_${{ matrix.architecture }}.tar.gz
+          name: jwlFusion_macos_x86_64.tgz
+          path: dist/jwlFusion_macos_x86_64.tgz
+
+  build_arm64:
+    name: Build for macOS arm64
+    runs-on: macos-14
+    needs: setup
+    steps:
+      - name: Clear dist directory
+        run: |
+          rm -rf dist/*
+          mkdir -p dist
+          mkdir -p dist/lib
+
+      - name: Compile and package
+        run: |
+          nim c -d:macos -d:strip -d:release --passL:-Wl,-rpath,@executable_path/lib --out:dist/jwlFusion src/jwlFusion.nim
+          cp lib/libjwlCore-arm64.dylib dist/lib/libjwlCore.dylib
+          install_name_tool -change lib/libjwlCore.dylib @executable_path/lib/libjwlCore.dylib dist/jwlFusion
+          tar -czvf dist/jwlFusion_macos_arm64.tgz -C dist jwlFusion lib/libjwlCore.dylib
+
+      - name: Upload binary for arm64
+        uses: actions/upload-artifact@v4
+        with:
+          name: jwlFusion_macos_arm64.tgz
+          path: dist/jwlFusion_macos_arm64.tgz
