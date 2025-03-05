@@ -10,8 +10,12 @@ jobs:
     uses: ./.github/workflows/build_lin.yml
     with:
       TAG: ${{ github.ref_name }}
-  macos:
-    uses: ./.github/workflows/build_mac.yml
+  macos-arm64:
+    uses: ./.github/workflows/build_mac_arm64.yml
+    with:
+      TAG: ${{ github.ref_name }}
+  macos-x86_64:
+    uses: ./.github/workflows/build_mac_x86_64.yml
     with:
       TAG: ${{ github.ref_name }}
   release:
