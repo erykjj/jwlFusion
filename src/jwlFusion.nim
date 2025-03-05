@@ -11,12 +11,8 @@ const
 
 
 import
-  std/[json, os, strformat, strutils, tables, tempfiles, times],
-  std/private/ospaths2,
-  nimcrypto,
-  parseopt,
-  zippy/ziparchives,
-  zippy
+  std/[json, os, private/ospaths2, strformat, strutils, tables, tempfiles, times],
+  nimcrypto, parseopt, zippy, zippy/ziparchives
 
 
 when defined(windows):
