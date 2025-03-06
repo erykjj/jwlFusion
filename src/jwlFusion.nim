@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.6.0"
+  Version = "0.6.1"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -161,7 +161,7 @@ when isMainModule:
     echo appHelp
     quit(0)
   if showVersion:
-    echo &"\n{App} {Maturity} v{Version}\n{$jwlCore}: {libName}\n© 2025 Eryk J.\n"
+    echo &"\n{App} {Maturity} v{Version}\n{$jwlCore}\n© 2025 Eryk J.\n"
     quit(0)
 
   if inputFiles.len < 2:
