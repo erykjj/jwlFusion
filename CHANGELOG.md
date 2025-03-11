@@ -11,6 +11,10 @@
 ### Removed
 
 ____
+## [v0.6.1] - 2025-03-11
+
+- Put jwlCore in same directory as executable (instead of lib/), as on Windows
+
 ## [v0.6.0] - 2025-03-05
 
 - Rebuild jwlCore for other architectures
@@ -28,6 +32,7 @@ ____
 - Initial release (beta)
 
 ____
+[v0.6.1]:https://github.com/erykjj/jwlFusion/releases/tag/v0.6.1
 [v0.6.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.6.0
 [v0.5.2]:https://github.com/erykjj/jwlFusion/releases/tag/v0.5.2
 [v0.5.1]:https://github.com/erykjj/jwlFusion/releases/tag/v0.5.1
