@@ -55,8 +55,6 @@ jobs:
         run: |
           nim c -d:macos -d:strip -d:release --out:dist/jwlFusion src/jwlFusion.nim
           cp lib/libjwlCore-arm64.dylib dist/libjwlCore.dylib
-          install_name_tool -change libjwlCore.dylib @executable_path/libjwlCore.dylib dist/jwlFusion
-          otool -l dist/jwlFusion
           tar -czvf dist/jwlFusion_macos_arm64.tar.gz -C dist jwlFusion libjwlCore.dylib
 
       - name: Upload binary for arm64
