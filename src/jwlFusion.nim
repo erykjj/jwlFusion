@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.6.1"
+  Version = "0.6.2"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -18,9 +18,9 @@ import
 when defined(windows):
   const libName = "jwlCore.dll"
 elif defined(macosx):
-  const libName = joinPath("lib", "libjwlCore.dylib")
+  const libName = "libjwlCore.dylib"
 else: # linux
-  const libName = joinPath("lib", "libjwlCore.so")
+  const libName = "libjwlCore.so"
 
 proc mergeDatabase(path1, path2: cstring) {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
