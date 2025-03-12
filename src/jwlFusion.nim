@@ -20,7 +20,7 @@ when defined(windows):
 elif defined(macosx):
   const libName = "libjwlCore.dylib"
 else: # linux
-  const libName = "libjwlCore.so"
+  const libName = "./libjwlCore.so"
 
 proc mergeDatabase(path1, path2: cstring) {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
