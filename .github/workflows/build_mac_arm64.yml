@@ -57,6 +57,8 @@ jobs:
           install_name_tool -add_rpath @executable_path dist/jwlFusion
           otool -l dist/jwlFusion | grep -A2 LC_RPATH
           cp lib/libjwlCore-arm64.dylib dist/libjwlCore.dylib
+          chmod +x dist/jwlFusion
+          chmod +x dist/libjwlCore.dylib
           xattr -c dist/libjwlCore.dylib
           xattr -c dist/jwlFusion
           tar -czvf dist/jwlFusion_macos_arm64.tar.gz -C dist jwlFusion libjwlCore.dylib
