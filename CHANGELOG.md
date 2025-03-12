@@ -14,6 +14,7 @@ ____
 ## [v0.6.1] - 2025-03-11
 
 - Put jwlCore in same directory as executable (instead of lib/), as on Windows
+- Various fixes with shared library loading for macOS
 
 ## [v0.6.0] - 2025-03-05
 
