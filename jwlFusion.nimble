@@ -16,5 +16,5 @@ requires "zippy >= 0.10.0"
 
 # Tasks
 
-# task build, "Build jwlFusion":
-#   exec "nim c -d:linux -d:strip -d:release --out:jwlFusion src/jwlFusion.nim"
+# task build, "Build jwlFusion_linux_x86_64":
+#   exec "nim c -d:linux -d:strip -d:release --out:jwlFusion_linux_x86_64/jwlFusion src/jwlFusion.nim"
