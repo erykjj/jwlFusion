@@ -32,6 +32,7 @@ var fileCounter: int = 0
 proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = joinPath(tmpDir, fmt"{App}_{fileCounter}")
+    echo(&"DEBUG:\n\ttmpdir: {tmpDir}\n\tpath: {path}\n") # DEBUG
     inc(fileCounter)
     extractAll(archive, path)
     return path
@@ -91,6 +92,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
   let original = inputFiles[0]
   let workDir = parentDir(original)
   let prefix = fmt"{App}_"
+  echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n") # DEBUG
   var outArchive = outputFile
   if outArchive == "":
     outArchive = joinPath(workDir, prefix & now().format("yyyy-MM-dd") & ".jwlibrary")
