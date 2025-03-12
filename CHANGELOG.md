@@ -16,6 +16,7 @@ ____
 - Put jwlCore in same directory as executable (instead of lib/), as on Windows
 - Various fixes with shared library loading for macOS and Linux
 - Removed support for Windows on arm64 until a SQLite library can be obtained
+- Add debug info output
 
 ## [v0.6.0] - 2025-03-05
 
