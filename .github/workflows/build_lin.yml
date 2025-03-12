@@ -88,19 +88,19 @@ jobs:
           name: jwlFusion_windows_amd64.zip
           path: dist/jwlFusion_windows_amd64.zip
 
-      - name: Clear dist directory
-        run: |
-          rm -rf dist/*
-          mkdir -p dist
+      # - name: Clear dist directory
+      #   run: |
+      #     rm -rf dist/*
+      #     mkdir -p dist
 
-      - name: Compile and package
-        run: |
-          nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target aarch64-windows-gnu" --passl:"-target aarch64-windows-gnu" --forceBuild:on --os:windows --cpu:arm64 -d:windows -d:strip -d:release --out:dist/jwlFusion.exe src/jwlFusion.nim
-          cp lib/jwlCore-arm64.dll dist/jwlCore.dll
-          zip -j dist/jwlFusion_windows_arm64.zip dist/jwlFusion.exe dist/jwlCore.dll # no sqlite3.dll for arm64; must have it on the system
+      # - name: Compile and package
+      #   run: |
+      #     nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target aarch64-windows-gnu" --passl:"-target aarch64-windows-gnu" --forceBuild:on --os:windows --cpu:arm64 -d:windows -d:strip -d:release --out:dist/jwlFusion.exe src/jwlFusion.nim
+      #     cp lib/jwlCore-arm64.dll dist/jwlCore.dll
+      #     zip -j dist/jwlFusion_windows_arm64.zip dist/jwlFusion.exe dist/jwlCore.dll # no sqlite3.dll for arm64; must have it on the system
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: jwlFusion_windows_arm64.zip
-          path: dist/jwlFusion_windows_arm64.zip
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: jwlFusion_windows_arm64.zip
+      #     path: dist/jwlFusion_windows_arm64.zip
