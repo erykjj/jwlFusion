@@ -11,7 +11,7 @@ const
 
 
 import
-  std/[json, os, private/ospaths2, strformat, strutils, tables, tempfiles, times],
+  std/[json, os, private/ospaths2, random, strformat, strutils, tables, times],
   nimcrypto, parseopt, zippy/ziparchives
 
 
@@ -38,7 +38,6 @@ var fileCounter: int = 0
 proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
-    echo(&"DEBUG:\n\ttmpdir: {tmpDir}\n\tpath: {path}\n") # DEBUG
     inc(fileCounter)
     extractAll(archive, path)
     return path
@@ -86,33 +85,33 @@ proc createArchive(source, destination, tz: string): string =
     raise
 
 
+proc randomSuffix(length: int): string =
+  const
+    Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  random.randomize()
+  result = newString(length)
+  for i in 0 ..< length:
+    result[i] = Chars[rand(Chars.high)]
+
 proc main(inputFiles: seq[string], outputFile: string) =
-
-  proc deleteDirectories(dir: string, prefix: string) =
-    for kind, path in walkDir(dir):
-      if kind == pcDir:
-        let dirName = path.normalizedPath.splitPath.tail
-        if dirName.startsWith('.' & prefix):
-          removeDir(path)
-
   let original = inputFiles[0]
   let workDir = parentDir(original)
   let prefix = fmt"{App}_"
-  echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n") # DEBUG
   var outArchive = outputFile
   if outArchive == "":
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
-  let tmpDir = createTempDir(fmt".{App}_", "", workDir)
+  let tmpDir = "." & sep & fmt".{App}_" & randomSuffix(10)
+  createDir(tmpDir)
+  echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
   let db1Path = unzipArchive(original, tmpDir)
+  echo(&"\tdb1Path: {db1Path}\n") # DEBUG
   echo fmt"  Original: {original}"
-
   for archive in inputFiles[1..^1]:
     echo fmt"+ Merging:  {archive}"
     mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
-
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt"= Merged:   {filename}"
-  deleteDirectories(workDir, prefix)
+  removeDir(tmpDir)
 
 when isMainModule:
   let jwlCore = getCoreVersion()
