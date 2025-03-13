@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.6.1"
+  Version = "0.6.2"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -16,11 +16,17 @@ import
 
 
 when defined(windows):
-  const libName = "jwlCore.dll"
+  const
+    libName = "jwlCore.dll"
+    sep = r"\"
 elif defined(macosx):
-  const libName = "libjwlCore.dylib"
+  const
+    libName = "libjwlCore.dylib"
+    sep = "/"
 else: # linux
-  const libName = "./libjwlCore.so"
+  const
+    libName = "./libjwlCore.so"
+    sep = "/"
 
 proc mergeDatabase(path1, path2: cstring) {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
@@ -31,7 +37,7 @@ var fileCounter: int = 0
 
 proc unzipArchive(archive, tmpDir: string): string =
   try:
-    let path = joinPath(tmpDir, fmt"{App}_{fileCounter}")
+    let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     echo(&"DEBUG:\n\ttmpdir: {tmpDir}\n\tpath: {path}\n") # DEBUG
     inc(fileCounter)
     extractAll(archive, path)
@@ -52,14 +58,14 @@ proc createArchive(source, destination, tz: string): string =
 
   try:
     var manifest: JsonNode
-    let manifestFile = joinPath(source, "manifest.json")
+    let manifestFile = source & sep & "manifest.json"
     manifest = parseFile(manifestFile)
     manifest["name"] = %App
     manifest["creationDate"] = %tz
     manifest["userDataBackup"]["deviceName"] = %fmt"{App}_{Version}"
     manifest["userDataBackup"]["lastModifiedDate"] = %tz
 
-    let dbFile = joinPath(source, "userData.db")
+    let dbFile = source & sep & "userData.db"
     let hash = sha256File(dbFile)
     manifest["userDataBackup"]["hash"] = %hash
     manifest["userDataBackup"]["databaseName"] = %"userData.db"
@@ -67,7 +73,7 @@ proc createArchive(source, destination, tz: string): string =
     writeFile(manifestFile, $manifest)
 
     var entries: Table[string, string]
-    for file in walkFiles(joinPath(source, "*")):
+    for file in walkFiles(source & sep & "*"):
       let relativeFile = relativePath(file, source)
       entries[relativeFile] = compress(file.readFile, 5)
     let archive = createZipArchive(entries)
@@ -95,7 +101,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
   echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n") # DEBUG
   var outArchive = outputFile
   if outArchive == "":
-    outArchive = joinPath(workDir, prefix & now().format("yyyy-MM-dd") & ".jwlibrary")
+    outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = createTempDir(fmt".{App}_", "", workDir)
   let db1Path = unzipArchive(original, tmpDir)
   echo fmt"  Original: {original}"
