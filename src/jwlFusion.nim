@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.6.2"
+  Version = "0.7.0"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -12,7 +12,7 @@ const
 
 import
   std/[json, os, private/ospaths2, strformat, strutils, tables, tempfiles, times],
-  nimcrypto, parseopt, zippy, zippy/ziparchives
+  nimcrypto, parseopt, zippy/ziparchives
 
 
 when defined(windows):
@@ -75,7 +75,7 @@ proc createArchive(source, destination, tz: string): string =
     var entries: Table[string, string]
     for file in walkFiles(source & sep & "*"):
       let relativeFile = relativePath(file, source)
-      entries[relativeFile] = compress(file.readFile, 5)
+      entries[relativeFile] = file.readFile
     let archive = createZipArchive(entries)
     writeFile(destination, archive)
 
