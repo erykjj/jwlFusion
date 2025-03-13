@@ -11,6 +11,10 @@
 ### Removed
 
 ____
+## [v0.7.0] - 2025-03-13
+
+- Fixed double-compression
+
 ## [v0.6.2] - 2025-03-13
 
 - Replace joinPath procedure with simple concatenation
@@ -39,6 +43,7 @@ ____
 - Initial release (beta)
 
 ____
+[v0.7.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.7.0
 [v0.6.2]:https://github.com/erykjj/jwlFusion/releases/tag/v0.6.2
 [v0.6.1]:https://github.com/erykjj/jwlFusion/releases/tag/v0.6.1
 [v0.6.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.6.0
