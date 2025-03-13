@@ -14,6 +14,7 @@ ____
 ## [v0.7.0] - 2025-03-13
 
 - Fixed double-compression
+- Implemented own temporary directory procedure
 
 ## [v0.6.2] - 2025-03-13
 
