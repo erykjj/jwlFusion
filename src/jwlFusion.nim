@@ -46,7 +46,10 @@ proc unzipArchive(archive, tmpDir: string): string =
       let fullPath = path & sep & entry
       echo(&"\tfullPath: {fullPath}") # DEBUG
       createDir(parentDir(fullPath))
-      writeFile(fullPath, r.extractFile(entry))
+      let file = open(fullPath, fmWrite)
+      defer: file.close()
+      file.write(r.extractFile(entry))
+      # writeFile(fullPath, r.extractFile(entry))
     return path
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
