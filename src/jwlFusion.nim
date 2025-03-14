@@ -47,7 +47,7 @@ var fileCounter: int = 0
 
 proc unzipArchive(archive, tmpDir: string): string =
   try:
-    let path = tmpDir & sep & fmt"{App}_{fileCounter}" & sep
+    let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
     createDir(path)
     var r = openZipArchive(archive)
