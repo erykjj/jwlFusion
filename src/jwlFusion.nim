@@ -35,29 +35,22 @@ proc getZuluTime(): cstring {.cdecl, dynlib: libName, importc.}
 
 var fileCounter: int = 0
 
-# proc unzipArchive(archive, tmpDir: string): string =
-#   try:
-#     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
-#     inc(fileCounter)
-#     extractAll(archive, path)
-#     return path
-#   except Exception as e:
-#     echo &"ERROR extracting '{archive}':\n{e.msg}"
-#     raise
-
 proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
     createDir(path)
+    echo(&"DEBUG:\n\tpath: {path}") # DEBUG
     var r = openZipArchive(archive)
     for entry in r.walkFiles():
-      writeFile(path & sep & entry, r.extractFile(entry))
+      let fullPath = path & sep & entry
+      echo(&"\tfullPath: {fullPath}") # DEBUG
+      createDir(parentDir(fullPath))
+      writeFile(fullPath, r.extractFile(entry))
     return path
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
     raise
-
 
 proc createArchive(source, destination, tz: string): string =
 
