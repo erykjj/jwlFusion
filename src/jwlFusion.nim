@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.7.0"
+  Version = "0.7.1"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -35,15 +35,29 @@ proc getZuluTime(): cstring {.cdecl, dynlib: libName, importc.}
 
 var fileCounter: int = 0
 
+# proc unzipArchive(archive, tmpDir: string): string =
+#   try:
+#     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
+#     inc(fileCounter)
+#     extractAll(archive, path)
+#     return path
+#   except Exception as e:
+#     echo &"ERROR extracting '{archive}':\n{e.msg}"
+#     raise
+
 proc unzipArchive(archive, tmpDir: string): string =
   try:
-    let path = tmpDir & sep & fmt"{App}_{fileCounter}"
+    let path = tmpDir & sep & fmt"{App}_{fileCounter}" & sep
     inc(fileCounter)
-    extractAll(archive, path)
+    createDir(path)
+    var r = openZipArchive(archive)
+    for entry in r.walkFiles():
+      writeFile(path & sep & entry, r.extractFile(entry))
     return path
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
     raise
+
 
 proc createArchive(source, destination, tz: string): string =
 
@@ -112,6 +126,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt"= Merged:   {filename}"
   removeDir(tmpDir)
+
 
 when isMainModule:
   let jwlCore = getCoreVersion()
