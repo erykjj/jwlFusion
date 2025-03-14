@@ -11,6 +11,10 @@
 ### Removed
 
 ____
+## [v0.7.1] - 2025-03-14
+
+- Modify archive unzipping
+
 ## [v0.7.0] - 2025-03-13
 
 - Fixed double-compression
