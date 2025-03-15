@@ -123,7 +123,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
     mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt"= Merged:   {filename}"
-  removeDir(tmpDir)
+  # removeDir(tmpDir)
 
 
 when isMainModule:
