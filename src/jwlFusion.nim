@@ -40,15 +40,16 @@ proc unzipArchive(archive, tmpDir: string): string =
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
     createDir(path)
+    sleep(10000) # DEBUG
     echo(&"DEBUG:\n\tpath: {path}") # DEBUG
     var r = openZipArchive(archive)
     for entry in r.walkFiles():
       let fullPath = path & sep & entry
       echo(&"\tfullPath: {fullPath}") # DEBUG
-      createDir(parentDir(fullPath))
-      setFilePermissions(parentDir(fullPath), {fpUserRead, fpUserWrite, fpUserExec})
+      createDir(parentDir(fullPath)) # DEBUG
+      # setFilePermissions(parentDir(fullPath), {fpUserRead, fpUserWrite, fpUserExec})
       writeFile(fullPath, r.extractFile(entry))
-      setFilePermissions(fullPath, {fpUserRead, fpUserWrite})
+      # setFilePermissions(fullPath, {fpUserRead, fpUserWrite})
     return path
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
@@ -111,6 +112,8 @@ proc main(inputFiles: seq[string], outputFile: string) =
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = "." & sep & fmt"{App}_" & randomSuffix(10)
   createDir(tmpDir)
+  createDir("/Users/zero/Downloads/test") # DEBUG
+  sleep(10000) # DEBUG
   echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
   let db1Path = unzipArchive(original, tmpDir)
   echo(&"\tdb1Path: {db1Path}\n") # DEBUG
