@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Hide temp directory
+
 ### Fixed
 
 ### Removed
