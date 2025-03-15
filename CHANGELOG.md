@@ -11,9 +11,11 @@
 ### Removed
 
 ____
-## [v0.7.1] - 2025-03-14
+## [v0.8.0] - 2025-03-15
 
-- Modify archive unzipping
+- Implement own functions to resolve system modules not working on macOS
+  - archive unzipping
+  - create and remove directories
 
 ## [v0.7.0] - 2025-03-13
 
@@ -48,6 +50,7 @@ ____
 - Initial release (beta)
 
 ____
+[v0.8.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.8.0
 [v0.7.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.7.0
 [v0.6.2]:https://github.com/erykjj/jwlFusion/releases/tag/v0.6.2
 [v0.6.1]:https://github.com/erykjj/jwlFusion/releases/tag/v0.6.1
