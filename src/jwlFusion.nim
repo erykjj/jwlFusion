@@ -97,10 +97,10 @@ proc createArchive(source, destination, tz: string): string =
 
     var entries: Table[string, string]
     for file in walkFiles(source & sep & "*"):
-      # let relativeFile = relativePath(file, source) # FIX: this isn't working on macOS
       let relativeFile = lastPathPart(file)
+      echo relativeFile #DEBUG
       entries[relativeFile] = file.readFile
-    let archive = createZipArchive(entries) # FIX: this packages with whole path
+    let archive = createZipArchive(entries)
     echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
     writeFile(destination, archive)
 
