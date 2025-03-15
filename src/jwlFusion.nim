@@ -55,6 +55,13 @@ proc rmDir(dir: string) =
     echo "Failed to remove directory: ", dir
     raise
 
+proc fileName(path: string): string =
+  let lastSep = path.rfind(sep)
+  if lastSep >= 0:
+    return path[lastSep + 1 .. ^1]
+  else:
+    return path
+
 proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
@@ -97,7 +104,7 @@ proc createArchive(source, destination, tz: string): string =
 
     var entries: Table[string, string]
     for file in walkFiles(source & sep & "*"):
-      let relativeFile = lastPathPart(file)
+      let relativeFile = fileName(file)
       echo relativeFile #DEBUG
       entries[relativeFile] = file.readFile
     let archive = createZipArchive(entries)
