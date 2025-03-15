@@ -52,7 +52,7 @@ proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
-    mkDir(path)
+    # mkDir(path)
     extractAll(archive, path)
     # var r = openZipArchive(archive)
     # for entry in r.walkFiles():
@@ -91,9 +91,11 @@ proc createArchive(source, destination, tz: string): string =
 
     var entries: Table[string, string]
     for file in walkFiles(source & sep & "*"):
-      let relativeFile = relativePath(file, source)
+      # let relativeFile = relativePath(file, source) # FIX: this isn't working on macOS
+      let relativeFile = lastPathPart(file)
       entries[relativeFile] = file.readFile
     let archive = createZipArchive(entries)
+    echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
     writeFile(destination, archive)
 
     return destination
@@ -121,7 +123,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
     mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt"= Merged:   {filename}"
-  # removeDir(tmpDir)
+  removeDir(tmpDir)
 
 
 when isMainModule:
