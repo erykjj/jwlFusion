@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.7.1"
+  Version = "0.8.0"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -62,6 +62,7 @@ proc fileName(path: string): string =
   else:
     return path
 
+
 proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
@@ -105,10 +106,9 @@ proc createArchive(source, destination, tz: string): string =
     var entries: Table[string, string]
     for file in walkFiles(source & sep & "*"):
       let relativeFile = fileName(file)
-      echo relativeFile #DEBUG
       entries[relativeFile] = file.readFile
     let archive = createZipArchive(entries)
-    echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
+    # echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
     writeFile(destination, archive)
 
     return destination
@@ -126,10 +126,9 @@ proc main(inputFiles: seq[string], outputFile: string) =
   if outArchive == "":
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = "." & sep & fmt"{App}_" & randomSuffix(10)
-  # mkDir(tmpDir)
-  echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
+  # echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
   let db1Path = unzipArchive(original, tmpDir)
-  echo(&"\tdb1Path: {db1Path}\n") # DEBUG
+  # echo(&"\tdb1Path: {db1Path}\n") # DEBUG
   echo fmt"  Original: {original}"
   for archive in inputFiles[1..^1]:
     echo fmt"+ Merging:  {archive}"
