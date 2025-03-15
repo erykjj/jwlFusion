@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.8.0"
+  Version = "0.8.1"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -19,14 +19,20 @@ when defined(windows):
   const
     libName = "jwlCore.dll"
     sep = r"\"
+    mkdir = "MKDIR "
+    rmdir = "RMDIR /S /Q "
 elif defined(macosx):
   const
     libName = "libjwlCore.dylib"
     sep = "/"
+    mkdir = "mkdir -p "
+    rmdir = "rm -r "
 else: # linux
   const
     libName = "./libjwlCore.so"
     sep = "/"
+    mkdir = "mkdir -p "
+    rmdir = "rm -r "
 
 proc mergeDatabase(path1, path2: cstring) {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
@@ -43,15 +49,15 @@ proc randomSuffix(length: int): string =
   for i in 0 ..< length:
     result[i] = Chars[rand(Chars.high)]
 
-proc mkDir(dir: string) =
+proc makeDir(dir: string) =
   # NOTE: createDir() doesn't work on macOS
-  if execCmd("mkdir -p " & dir) != 0:
+  if execCmd(mkdir & dir) != 0:
     echo "Failed to create directory: ", dir
     raise
 
-proc rmDir(dir: string) =
+proc removeDir(dir: string) =
   # NOTE: removeDir() doesn't work on macOS
-  if execCmd("rm -r " & dir) != 0:
+  if execCmd(rmdir & dir) != 0:
     echo "Failed to remove directory: ", dir
     raise
 
@@ -67,7 +73,7 @@ proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
-    mkDir(path)
+    makeDir(path)
     var r = openZipArchive(archive)
     for entry in r.walkFiles():
       let fullPath = path & sep & entry
@@ -126,6 +132,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
   if outArchive == "":
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = "." & sep & fmt"{App}_" & randomSuffix(10)
+  makeDir(tmpDir)
   # echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
   let db1Path = unzipArchive(original, tmpDir)
   # echo(&"\tdb1Path: {db1Path}\n") # DEBUG
@@ -135,7 +142,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
     mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt"= Merged:   {filename}"
-  rmDir(tmpDir)
+  removeDir(tmpDir)
 
 
 when isMainModule:
