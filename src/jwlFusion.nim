@@ -44,6 +44,7 @@ proc randomSuffix(length: int): string =
     result[i] = Chars[rand(Chars.high)]
 
 proc mkDir(dir: string) =
+  # NOTE: createDir() doesn't work on macOS
   if execCmd("mkdir -p " & dir) != 0:
     echo "Failed to create directory: ", dir
     raise
@@ -52,12 +53,11 @@ proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
-    # mkDir(path)
-    extractAll(archive, path)
-    # var r = openZipArchive(archive)
-    # for entry in r.walkFiles():
-    #   let fullPath = path & sep & entry
-    #   writeFile(fullPath, r.extractFile(entry))
+    mkDir(path)
+    var r = openZipArchive(archive)
+    for entry in r.walkFiles():
+      let fullPath = path & sep & entry
+      writeFile(fullPath, r.extractFile(entry))
     return path
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
