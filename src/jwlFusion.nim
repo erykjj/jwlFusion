@@ -49,6 +49,12 @@ proc mkDir(dir: string) =
     echo "Failed to create directory: ", dir
     raise
 
+proc rmDir(dir: string) =
+  # NOTE: removeDir() doesn't work on macOS
+  if execCmd("rm -r " & dir) != 0:
+    echo "Failed to remove directory: ", dir
+    raise
+
 proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
@@ -94,7 +100,7 @@ proc createArchive(source, destination, tz: string): string =
       # let relativeFile = relativePath(file, source) # FIX: this isn't working on macOS
       let relativeFile = lastPathPart(file)
       entries[relativeFile] = file.readFile
-    let archive = createZipArchive(entries)
+    let archive = createZipArchive(entries) # FIX: this packages with whole path
     echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
     writeFile(destination, archive)
 
@@ -113,7 +119,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
   if outArchive == "":
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = "." & sep & fmt"{App}_" & randomSuffix(10)
-  mkDir(tmpDir)
+  # mkDir(tmpDir)
   echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
   let db1Path = unzipArchive(original, tmpDir)
   echo(&"\tdb1Path: {db1Path}\n") # DEBUG
@@ -123,7 +129,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
     mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt"= Merged:   {filename}"
-  # removeDir(tmpDir)
+  rmDir(tmpDir)
 
 
 when isMainModule:
