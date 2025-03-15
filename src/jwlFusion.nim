@@ -53,12 +53,11 @@ proc unzipArchive(archive, tmpDir: string): string =
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
     mkDir(path)
-    echo(&"DEBUG:\n\tpath: {path}") # DEBUG
-    var r = openZipArchive(archive)
-    for entry in r.walkFiles():
-      let fullPath = path & sep & entry
-      echo(&"\tfullPath: {fullPath}") # DEBUG
-      writeFile(fullPath, r.extractFile(entry))
+    extractAll(archive, path)
+    # var r = openZipArchive(archive)
+    # for entry in r.walkFiles():
+    #   let fullPath = path & sep & entry
+    #   writeFile(fullPath, r.extractFile(entry))
     return path
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
@@ -122,7 +121,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
     mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt"= Merged:   {filename}"
-  removeDir(tmpDir)
+  # removeDir(tmpDir)
 
 
 when isMainModule:
