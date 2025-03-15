@@ -46,10 +46,9 @@ proc unzipArchive(archive, tmpDir: string): string =
       let fullPath = path & sep & entry
       echo(&"\tfullPath: {fullPath}") # DEBUG
       createDir(parentDir(fullPath))
-      let file = open(fullPath, fmWrite)
-      defer: file.close()
-      file.write(r.extractFile(entry))
-      # writeFile(fullPath, r.extractFile(entry))
+      setFilePermissions(parentDir(fullPath), {fpUserRead, fpUserWrite, fpUserExec})
+      writeFile(fullPath, r.extractFile(entry))
+      setFilePermissions(fullPath, {fpUserRead, fpUserWrite})
     return path
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
@@ -110,7 +109,7 @@ proc main(inputFiles: seq[string], outputFile: string) =
   var outArchive = outputFile
   if outArchive == "":
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
-  let tmpDir = "." & sep & fmt".{App}_" & randomSuffix(10)
+  let tmpDir = "." & sep & fmt"{App}_" & randomSuffix(10)
   createDir(tmpDir)
   echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
   let db1Path = unzipArchive(original, tmpDir)
