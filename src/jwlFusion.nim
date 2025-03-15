@@ -11,10 +11,8 @@ const
 
 
 import
-  std/[json, os, private/ospaths2, random, strformat, strutils, tables, times],
-  nimcrypto,
-  parseopt, 
-  zippy/ziparchives
+  std/[json, os, random, strformat, strutils, tables, times],
+  nimcrypto, parseopt, zippy/ziparchives
 
 
 when defined(windows):
