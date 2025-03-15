@@ -11,16 +11,18 @@ const
 
 
 import
-  std/[json, os, osproc, private/ospaths2, random, strformat, strutils, tables, times],
-  nimcrypto, parseopt, zippy/ziparchives
+  std/[json, os, private/ospaths2, random, strformat, strutils, tables, times],
+  nimcrypto,
+  parseopt, 
+  zippy/ziparchives
 
 
 when defined(windows):
   const
     libName = "jwlCore.dll"
     sep = r"\"
-    mkdir = "MKDIR "
-    rmdir = "RMDIR /S /Q "
+    mkdir = "mkdir "
+    rmdir = "rmdir /S /Q "
 elif defined(macosx):
   const
     libName = "libjwlCore.dylib"
@@ -51,13 +53,13 @@ proc randomSuffix(length: int): string =
 
 proc makeDir(dir: string) =
   # NOTE: createDir() doesn't work on macOS
-  if execCmd(mkdir & dir) != 0:
+  if execShellCmd(mkdir & dir) != 0:
     echo "Failed to create directory: ", dir
     raise
 
 proc removeDir(dir: string) =
   # NOTE: removeDir() doesn't work on macOS
-  if execCmd(rmdir & dir) != 0:
+  if execShellCmd(rmdir & dir) != 0:
     echo "Failed to remove directory: ", dir
     raise
 
@@ -114,7 +116,7 @@ proc createArchive(source, destination, tz: string): string =
       let relativeFile = fileName(file)
       entries[relativeFile] = file.readFile
     let archive = createZipArchive(entries)
-    echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
+    # echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
     writeFile(destination, archive)
 
     return destination
@@ -132,10 +134,10 @@ proc main(inputFiles: seq[string], outputFile: string) =
   if outArchive == "":
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = "." & sep & fmt"{App}_" & randomSuffix(10)
+  # echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
   makeDir(tmpDir)
-  echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
   let db1Path = unzipArchive(original, tmpDir)
-  echo(&"\tdb1Path: {db1Path}\n") # DEBUG
+  # echo(&"\tdb1Path: {db1Path}\n") # DEBUG
   echo fmt"  Original: {original}"
   for archive in inputFiles[1..^1]:
     echo fmt"+ Merging:  {archive}"
