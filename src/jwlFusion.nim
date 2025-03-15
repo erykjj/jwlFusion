@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.8.1"
+  Version = "0.8.2"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -114,7 +114,6 @@ proc createArchive(source, destination, tz: string): string =
       let relativeFile = fileName(file)
       entries[relativeFile] = file.readFile
     let archive = createZipArchive(entries)
-    # echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
     writeFile(destination, archive)
 
     return destination
@@ -131,17 +130,15 @@ proc main(inputFiles: seq[string], outputFile: string) =
   var outArchive = outputFile
   if outArchive == "":
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
-  let tmpDir = "." & sep & fmt"{App}_" & randomSuffix(10)
-  # echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
+  let tmpDir = "." & sep & fmt".{App}_" & randomSuffix(10)
   makeDir(tmpDir)
   let db1Path = unzipArchive(original, tmpDir)
-  # echo(&"\tdb1Path: {db1Path}\n") # DEBUG
-  echo fmt"  Original: {original}"
+  echo fmt"   Original: {original}"
   for archive in inputFiles[1..^1]:
-    echo fmt"+ Merging:  {archive}"
+    echo fmt" + Merging:  {archive}"
     mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
-  echo fmt"= Merged:   {filename}"
+  echo fmt" = Merged:   {filename}"
   removeDir(tmpDir)
 
 
