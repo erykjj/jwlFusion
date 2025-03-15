@@ -11,7 +11,7 @@ const
 
 
 import
-  std/[json, os, private/ospaths2, random, strformat, strutils, tables, times],
+  std/[json, os, osproc, private/ospaths2, random, strformat, strutils, tables, times],
   nimcrypto, parseopt, zippy/ziparchives
 
 
@@ -39,7 +39,7 @@ proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
-    createDir(path)
+    createDir(absolutePath(path))
     sleep(10000) # DEBUG
     echo(&"DEBUG:\n\tpath: {path}") # DEBUG
     var r = openZipArchive(archive)
@@ -111,11 +111,20 @@ proc main(inputFiles: seq[string], outputFile: string) =
   if outArchive == "":
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = "." & sep & fmt"{App}_" & randomSuffix(10)
-  createDir(tmpDir)
+  createDir(absolutePath(tmpDir))
   createDir("/Users/zero/Downloads/test") # DEBUG
   sleep(10000) # DEBUG
+
+  let cmd = "mkdir -p " & tmpDir
+  let exitCode = execCmd(cmd)
+
+  if exitCode == 0:
+    echo "Directory created successfully: ", tmpDir
+  else:
+    echo "Failed to create directory: ", tmpDir
   echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
   let db1Path = unzipArchive(original, tmpDir)
+  sleep(10000) # DEBUG
   echo(&"\tdb1Path: {db1Path}\n") # DEBUG
   echo fmt"  Original: {original}"
   for archive in inputFiles[1..^1]:
