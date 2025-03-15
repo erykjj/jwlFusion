@@ -35,21 +35,30 @@ proc getZuluTime(): cstring {.cdecl, dynlib: libName, importc.}
 
 var fileCounter: int = 0
 
+proc randomSuffix(length: int): string =
+  const
+    Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  random.randomize()
+  result = newString(length)
+  for i in 0 ..< length:
+    result[i] = Chars[rand(Chars.high)]
+
+proc mkDir(dir: string) =
+  if execCmd("mkdir -p " & dir) != 0:
+    echo "Failed to create directory: ", dir
+    raise
+
 proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
-    createDir(absolutePath(path))
-    sleep(10000) # DEBUG
+    mkDir(path)
     echo(&"DEBUG:\n\tpath: {path}") # DEBUG
     var r = openZipArchive(archive)
     for entry in r.walkFiles():
       let fullPath = path & sep & entry
       echo(&"\tfullPath: {fullPath}") # DEBUG
-      createDir(parentDir(fullPath)) # DEBUG
-      # setFilePermissions(parentDir(fullPath), {fpUserRead, fpUserWrite, fpUserExec})
       writeFile(fullPath, r.extractFile(entry))
-      # setFilePermissions(fullPath, {fpUserRead, fpUserWrite})
     return path
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
@@ -95,14 +104,6 @@ proc createArchive(source, destination, tz: string): string =
     raise
 
 
-proc randomSuffix(length: int): string =
-  const
-    Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-  random.randomize()
-  result = newString(length)
-  for i in 0 ..< length:
-    result[i] = Chars[rand(Chars.high)]
-
 proc main(inputFiles: seq[string], outputFile: string) =
   let original = inputFiles[0]
   let workDir = parentDir(original)
@@ -111,20 +112,9 @@ proc main(inputFiles: seq[string], outputFile: string) =
   if outArchive == "":
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = "." & sep & fmt"{App}_" & randomSuffix(10)
-  createDir(absolutePath(tmpDir))
-  createDir("/Users/zero/Downloads/test") # DEBUG
-  sleep(10000) # DEBUG
-
-  let cmd = "mkdir -p " & tmpDir
-  let exitCode = execCmd(cmd)
-
-  if exitCode == 0:
-    echo "Directory created successfully: ", tmpDir
-  else:
-    echo "Failed to create directory: ", tmpDir
+  mkDir(tmpDir)
   echo(&"DEBUG:\n\tworkDir: {workDir}\n\tprefix: {prefix}\n\ttmpDir: {tmpDir}") # DEBUG
   let db1Path = unzipArchive(original, tmpDir)
-  sleep(10000) # DEBUG
   echo(&"\tdb1Path: {db1Path}\n") # DEBUG
   echo fmt"  Original: {original}"
   for archive in inputFiles[1..^1]:
