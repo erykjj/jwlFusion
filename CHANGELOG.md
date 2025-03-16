@@ -11,6 +11,11 @@
 ### Removed
 
 ____
+## [v0.8.3] - 2025-03-16
+
+- Set default output directory to executable directory
+- Re-enable some debugging output
+
 ## [v0.8.2] - 2025-03-16
 
 - Hide temp directory
