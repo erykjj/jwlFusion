@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.8.2"
+  Version = "0.8.3"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -114,7 +114,11 @@ proc createArchive(source, destination, tz: string): string =
       let relativeFile = fileName(file)
       entries[relativeFile] = file.readFile
     let archive = createZipArchive(entries)
-    writeFile(destination, archive)
+    echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
+    # writeFile(destination, archive)
+    let file = open(destination, fmWrite)
+    file.write(archive)
+    file.close()
 
     return destination
 
@@ -125,7 +129,7 @@ proc createArchive(source, destination, tz: string): string =
 
 proc main(inputFiles: seq[string], outputFile: string) =
   let original = inputFiles[0]
-  let workDir = parentDir(original)
+  let workDir = "." # parentDir(original)
   let prefix = fmt"{App}_"
   var outArchive = outputFile
   if outArchive == "":
