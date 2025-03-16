@@ -26,13 +26,13 @@ elif defined(macosx):
     libName = "libjwlCore.dylib"
     sep = "/"
     mkdir = "mkdir -p "
-    rmdir = "rm -r "
+    rmdir = "rm -rf "
 else: # linux
   const
     libName = "./libjwlCore.so"
     sep = "/"
     mkdir = "mkdir -p "
-    rmdir = "rm -r "
+    rmdir = "rm -rf "
 
 proc mergeDatabase(path1, path2: cstring) {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
