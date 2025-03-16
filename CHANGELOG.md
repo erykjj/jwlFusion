@@ -7,6 +7,7 @@
 ### Changed
 
 - Hide temp directory
+- Force remove temp directory on macOS and Linux
 
 ### Fixed
 
