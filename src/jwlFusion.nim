@@ -74,10 +74,16 @@ proc unzipArchive(archive, tmpDir: string): string =
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
     makeDir(path)
-    var r = openZipArchive(archive)
+    var
+      r = openZipArchive(archive)
+      file: File
     for entry in r.walkFiles():
       let fullPath = path & sep & entry
-      writeFile(fullPath, r.extractFile(entry))
+      # writeFile(fullPath, r.extractFile(entry))
+      file = open(fullPath)
+      file.write(r.extractFile(entry))
+      file.close()
+
     return path
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
@@ -107,7 +113,10 @@ proc createArchive(source, destination, tz: string): string =
     manifest["userDataBackup"]["hash"] = %hash
     manifest["userDataBackup"]["databaseName"] = %"userData.db"
 
-    writeFile(manifestFile, $manifest)
+    # writeFile(manifestFile, $manifest)
+    var file = open(manifestFile, fmWrite)
+    file.write($manifest)
+    file.close()
 
     var entries: Table[string, string]
     for file in walkFiles(source & sep & "*"):
@@ -116,7 +125,7 @@ proc createArchive(source, destination, tz: string): string =
     let archive = createZipArchive(entries)
     echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
     # writeFile(destination, archive)
-    let file = open(destination, fmWrite)
+    file = open(destination, fmWrite)
     file.write(archive)
     file.close()
 
