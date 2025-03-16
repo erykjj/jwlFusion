@@ -80,7 +80,7 @@ proc unzipArchive(archive, tmpDir: string): string =
     for entry in r.walkFiles():
       let fullPath = path & sep & entry
       # writeFile(fullPath, r.extractFile(entry))
-      file = open(fullPath)
+      file = open(fullPath, fmWrite)
       file.write(r.extractFile(entry))
       file.close()
 
