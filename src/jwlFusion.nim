@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.8.3"
+  Version = "0.9.0"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -79,7 +79,6 @@ proc unzipArchive(archive, tmpDir: string): string =
       file: File
     for entry in r.walkFiles():
       let fullPath = path & sep & entry
-      # writeFile(fullPath, r.extractFile(entry))
       file = open(fullPath, fmWrite)
       file.write(r.extractFile(entry))
       file.close()
@@ -113,7 +112,6 @@ proc createArchive(source, destination, tz: string): string =
     manifest["userDataBackup"]["hash"] = %hash
     manifest["userDataBackup"]["databaseName"] = %"userData.db"
 
-    # writeFile(manifestFile, $manifest)
     var file = open(manifestFile, fmWrite)
     file.write($manifest)
     file.close()
@@ -123,8 +121,6 @@ proc createArchive(source, destination, tz: string): string =
       let relativeFile = fileName(file)
       entries[relativeFile] = file.readFile
     let archive = createZipArchive(entries)
-    echo(&"DEBUG:\n\tsource: {source}\n\tdestination: {destination}") # DEBUG
-    # writeFile(destination, archive)
     file = open(destination, fmWrite)
     file.write(archive)
     file.close()
