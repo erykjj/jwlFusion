@@ -6,14 +6,16 @@
 
 ### Changed
 
-- Hide temp directory
-- Force remove temp directory on macOS and Linux
-
 ### Fixed
 
 ### Removed
 
 ____
+## [v0.8.2] - 2025-03-16
+
+- Hide temp directory
+- Force remove temp directory on macOS and Linux
+
 ## [v0.8.1] - 2025-03-15
 
 - Use os instead of osproc for system commands
@@ -57,6 +59,7 @@ ____
 - Initial release (beta)
 
 ____
+[v0.8.1]:https://github.com/erykjj/jwlFusion/releases/tag/v0.8.2
 [v0.8.1]:https://github.com/erykjj/jwlFusion/releases/tag/v0.8.1
 [v0.8.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.8.0
 [v0.7.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.7.0
