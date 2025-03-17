@@ -8,6 +8,7 @@
 
 - Update jwlCore
   - Replace existing Bookmarks instead of skipping them
+  - Update trim query
 
 ### Fixed
 
