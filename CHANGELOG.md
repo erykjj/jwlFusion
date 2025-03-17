@@ -14,6 +14,7 @@ ____
 ## [v0.9.0] - 2025-03-17
 
 - Thank you, @Drizztfire & @benny-danny, for testing and reporting
+- Set permissions on output archive
 - Update jwlCore
   - Replace existing Bookmarks instead of skipping them
   - Update trim query
