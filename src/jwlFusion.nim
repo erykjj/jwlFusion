@@ -124,6 +124,7 @@ proc createArchive(source, destination, tz: string): string =
     file = open(destination, fmWrite)
     file.write(archive)
     file.close()
+    setFilePermissions(destination, {fpUserRead, fpUserWrite, fpGroupRead, fpGroupWrite, fpOthersRead})
 
     return destination
 
