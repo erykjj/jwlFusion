@@ -104,7 +104,7 @@ proc createArchive(source, destination, tz: string): string =
     manifest = parseFile(manifestFile)
     manifest["name"] = %App
     manifest["creationDate"] = %tz
-    manifest["userDataBackup"]["deviceName"] = %fmt"{App}_{Version}"
+    manifest["userDataBackup"]["deviceName"] = %fmt"{App}_v{Version}"
     manifest["userDataBackup"]["lastModifiedDate"] = %tz
 
     let dbFile = source & sep & "userData.db"
