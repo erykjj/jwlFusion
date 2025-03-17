@@ -6,6 +6,9 @@
 
 ### Changed
 
+- Update jwlCore
+  - Replace existing Bookmarks instead of skipping them
+
 ### Fixed
 
 ### Removed
