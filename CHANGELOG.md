@@ -6,15 +6,18 @@
 
 ### Changed
 
-- Update jwlCore
-  - Replace existing Bookmarks instead of skipping them
-  - Update trim query
-
 ### Fixed
 
 ### Removed
 
 ____
+## [v0.9.0] - 2025-03-17
+
+- Thank you, @Drizztfire & @benny-danny, for testing and reporting
+- Update jwlCore
+  - Replace existing Bookmarks instead of skipping them
+  - Update trim query
+
 ## [v0.8.3] - 2025-03-16
 
 - Set default output directory to executable directory
@@ -68,6 +71,7 @@ ____
 - Initial release (beta)
 
 ____
+[v0.9.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.9.0
 [v0.8.3]:https://github.com/erykjj/jwlFusion/releases/tag/v0.8.3
 [v0.8.2]:https://github.com/erykjj/jwlFusion/releases/tag/v0.8.2
 [v0.8.1]:https://github.com/erykjj/jwlFusion/releases/tag/v0.8.1
