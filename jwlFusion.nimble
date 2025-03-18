@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.9.0"
+version       = "0.11.0"
 author        = "Eryk J."
 description   = "Merge one or more '.jwlibrary' archives"
 license       = "Infiniti Noncommercial License"
@@ -12,7 +12,6 @@ bin           = @["jwlFusion"]
 
 requires "nim >= 2.2.0"
 requires "nimcrypto >= 0.6.0"
-requires "zippy >= 0.10.0"
 
 # Tasks
 
