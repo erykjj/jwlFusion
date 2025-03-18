@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.10.0"
+  Version = "0.11.0"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -11,9 +11,8 @@ const
 
 
 import
-  std/[json, os, random, strformat, strutils, tables, times],
+  std/[json, os, random, strformat, strutils, times],
   nimcrypto, parseopt
-  # zippy/ziparchives
 
 
 when defined(windows):
@@ -50,6 +49,15 @@ proc randomSuffix(length: int): string =
   for i in 0 ..< length:
     result[i] = Chars[rand(Chars.high)]
 
+proc sha256File(filename: string): string =
+  let data = readFile(filename)
+  var ctx: sha256
+  ctx.init()
+  ctx.update(data)
+  let digest = ctx.finish()
+  return digest.data.toHex(lowercase = true)
+
+
 proc makeDir(dir: string) =
   if execShellCmd(mkdir & dir) != 0:
     echo "Failed to create directory: ", dir
@@ -59,6 +67,7 @@ proc removeDir(dir: string) =
   if execShellCmd(rmdir & dir) != 0:
     echo "Failed to remove directory: ", dir
     raise
+
 
 proc zipUp(archive, dir: string) =
   let zip = &"zip -qj9 {archive} {dir}" & sep & "*"
@@ -72,13 +81,6 @@ proc zipDown(archive, dir: string) =
     echo "Failed to unzip archive: ", archive
     raise
 
-# proc fileName(path: string): string =
-#   let lastSep = path.rfind(sep)
-#   if lastSep >= 0:
-#     return path[lastSep + 1 .. ^1]
-#   else:
-#     return path
-
 
 proc unzipArchive(archive, tmpDir: string): string =
   try:
@@ -86,14 +88,6 @@ proc unzipArchive(archive, tmpDir: string): string =
     inc(fileCounter)
     makeDir(path)
     zipDown(archive, path)
-    # var
-    #   r = openZipArchive(archive)
-    #   file: File
-    # for entry in r.walkFiles():
-    #   let fullPath = path & sep & entry
-    #   file = open(fullPath, fmWrite)
-    #   file.write(r.extractFile(entry))
-    #   file.close()
 
     return path
   except Exception as e:
@@ -102,13 +96,6 @@ proc unzipArchive(archive, tmpDir: string): string =
 
 proc createArchive(source, destination, tz: string): string =
 
-  proc sha256File(filename: string): string =
-    let data = readFile(filename)
-    var ctx: sha256
-    ctx.init()
-    ctx.update(data)
-    let digest = ctx.finish()
-    return digest.data.toHex(lowercase = true)
 
   try:
     var manifest: JsonNode
@@ -128,15 +115,8 @@ proc createArchive(source, destination, tz: string): string =
     file.write($manifest)
     file.close()
 
-    # var entries: Table[string, string]
     for file in walkFiles(source & sep & "*"):
       setFilePermissions(file, {fpUserRead, fpUserWrite, fpGroupRead, fpGroupWrite, fpOthersRead})
-    #   let relativeFile = fileName(file)
-    #   entries[relativeFile] = file.readFile
-    # let archive = createZipArchive(entries)
-    # file = open(destination, fmWrite)
-    # file.write(archive)
-    # file.close()
     zipUp(destination, source)
 
     return destination
@@ -148,7 +128,7 @@ proc createArchive(source, destination, tz: string): string =
 
 proc main(inputFiles: seq[string], outputFile: string) =
   let original = inputFiles[0]
-  let workDir = "." # parentDir(original)
+  let workDir = "."
   let prefix = fmt"{App}_"
   var outArchive = outputFile
   if outArchive == "":
@@ -163,7 +143,6 @@ proc main(inputFiles: seq[string], outputFile: string) =
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt" = Merged:   {filename}"
   removeDir(tmpDir)
-
 
 when isMainModule:
   let jwlCore = getCoreVersion()
