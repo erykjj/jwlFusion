@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.9.0"
+  Version = "0.10.0"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -11,8 +11,9 @@ const
 
 
 import
-  std/[json, os, random, strformat, strutils, tables, times],
-  nimcrypto, parseopt, zippy/ziparchives
+  std/[json, os, random, strformat, strutils],# tables, times],
+  nimcrypto, parseopt
+  # zippy/ziparchives
 
 
 when defined(windows):
@@ -50,23 +51,33 @@ proc randomSuffix(length: int): string =
     result[i] = Chars[rand(Chars.high)]
 
 proc makeDir(dir: string) =
-  # NOTE: createDir() doesn't work on macOS
   if execShellCmd(mkdir & dir) != 0:
     echo "Failed to create directory: ", dir
     raise
 
 proc removeDir(dir: string) =
-  # NOTE: removeDir() doesn't work on macOS
   if execShellCmd(rmdir & dir) != 0:
     echo "Failed to remove directory: ", dir
     raise
 
-proc fileName(path: string): string =
-  let lastSep = path.rfind(sep)
-  if lastSep >= 0:
-    return path[lastSep + 1 .. ^1]
-  else:
-    return path
+proc zipUp(archive, dir: string) =
+  let zip = &"zip -qj9 {archive} {dir}" & sep & "*"
+  if execShellCmd(zip) != 0:
+    echo "Failed to zip directory: ", dir
+    raise
+
+proc zipDown(archive, dir: string) =
+  let unzip = &"unzip -qj {archive} -d {dir}"
+  if execShellCmd(unzip) != 0:
+    echo "Failed to unzip archive: ", archive
+    raise
+
+# proc fileName(path: string): string =
+#   let lastSep = path.rfind(sep)
+#   if lastSep >= 0:
+#     return path[lastSep + 1 .. ^1]
+#   else:
+#     return path
 
 
 proc unzipArchive(archive, tmpDir: string): string =
@@ -74,14 +85,15 @@ proc unzipArchive(archive, tmpDir: string): string =
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
     makeDir(path)
-    var
-      r = openZipArchive(archive)
-      file: File
-    for entry in r.walkFiles():
-      let fullPath = path & sep & entry
-      file = open(fullPath, fmWrite)
-      file.write(r.extractFile(entry))
-      file.close()
+    zipDown(archive, path)
+    # var
+    #   r = openZipArchive(archive)
+    #   file: File
+    # for entry in r.walkFiles():
+    #   let fullPath = path & sep & entry
+    #   file = open(fullPath, fmWrite)
+    #   file.write(r.extractFile(entry))
+    #   file.close()
 
     return path
   except Exception as e:
@@ -116,15 +128,16 @@ proc createArchive(source, destination, tz: string): string =
     file.write($manifest)
     file.close()
 
-    var entries: Table[string, string]
+    # var entries: Table[string, string]
     for file in walkFiles(source & sep & "*"):
-      let relativeFile = fileName(file)
-      entries[relativeFile] = file.readFile
-    let archive = createZipArchive(entries)
-    file = open(destination, fmWrite)
-    file.write(archive)
-    file.close()
-    setFilePermissions(destination, {fpUserRead, fpUserWrite, fpGroupRead, fpGroupWrite, fpOthersRead})
+      setFilePermissions(file, {fpUserRead, fpUserWrite, fpGroupRead, fpGroupWrite, fpOthersRead})
+    #   let relativeFile = fileName(file)
+    #   entries[relativeFile] = file.readFile
+    # let archive = createZipArchive(entries)
+    # file = open(destination, fmWrite)
+    # file.write(archive)
+    # file.close()
+    zipUp(destination, source)
 
     return destination
 
