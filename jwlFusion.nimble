@@ -11,7 +11,7 @@ bin           = @["jwlFusion"]
 # Dependencies
 
 requires "nim >= 2.2.0"
-requires "nimcrypto >= 0.6.0"
+requires "nimcrypto >= 0.6.2"
 
 # Tasks
 
