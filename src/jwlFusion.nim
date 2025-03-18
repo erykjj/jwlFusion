@@ -11,7 +11,7 @@ const
 
 
 import
-  std/[json, os, random, strformat, strutils],# tables, times],
+  std/[json, os, random, strformat, strutils, tables, times],
   nimcrypto, parseopt
   # zippy/ziparchives
 
