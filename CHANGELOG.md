@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Remove useless dependencies
+
 ### Fixed
 
 ### Removed
