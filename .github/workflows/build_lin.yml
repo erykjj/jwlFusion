@@ -80,7 +80,7 @@ jobs:
           nim c --cc:clang --clang.exe="zigcc" --clang.linkerexe="zigcc" --passc:"-target x86_64-windows" --passl:"-target x86_64-windows" --forceBuild:on --os:windows -d:windows -d:strip -d:release --out:dist/jwlFusion.exe src/jwlFusion.nim
           cp lib/jwlCore-amd64.dll dist/jwlCore.dll
           cp lib/sqlite3_64.dll dist/
-          zip -j dist/jwlFusion_windows_amd64.zip dist/jwlFusion.exe dist/jwlCore.dll dist/sqlite3_64.dll
+          zip -j dist/jwlFusion_windows_amd64.zip dist/jwlFusion.exe dist/jwlCore.dll dist/sqlite3_64.dll dist/zip.exe dist/unzip.exe dist/bzip2.dll
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
