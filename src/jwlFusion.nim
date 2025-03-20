@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "0.11.0"
+  Version = "0.12.0"
   Maturity = "βητα"
 
 #[  © 2025 Eryk J.
@@ -148,6 +148,7 @@ when isMainModule:
   let jwlCore = getCoreVersion()
   let
     t = cpuTime()
+    t1 = epochTime()
     appName = getAppFilename().splitFile().name
     appHelp = unindent(fmt"""
       
@@ -208,4 +209,4 @@ when isMainModule:
 
   echo &"\n{appName} ({Version})\n"
   main(inputFiles, outputFile)
-  echo &"\nTime: {cpuTime() - t:.1f}s\n"
+  echo &"\nTime: {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n"
