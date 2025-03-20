@@ -6,7 +6,8 @@
 
 ### Changed
 
-- Remove useless dependencies
+- Updated jwlCore
+  - Fixed merging Bookmarks
 
 ### Fixed
 
@@ -15,6 +16,7 @@
 ____
 ## [v0.11.0] - 2025-03-20
 
+- Remove useless dependencies
 - Include zip and unzip utilities in Windows package
 
 ## [v0.10.0] - 2025-03-18
