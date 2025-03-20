@@ -6,14 +6,21 @@
 
 ### Changed
 
-- Updated jwlCore
-  - Fixed merging Bookmarks
-
 ### Fixed
 
 ### Removed
 
 ____
+## [v0.12.0] - 2025-03-20
+### Added
+
+- Show total time and CPU time
+
+### Changed
+
+- Updated jwlCore
+  - Fixed merging Bookmarks
+
 ## [v0.11.0] - 2025-03-20
 
 - Remove useless dependencies
@@ -84,6 +91,7 @@ ____
 - Initial release (beta)
 
 ____
+[v0.12.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.12.0
 [v0.11.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.11.0
 [v0.10.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.10.0
 [v0.9.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.9.0
