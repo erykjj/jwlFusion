@@ -13,6 +13,10 @@
 ### Removed
 
 ____
+## [v0.11.0] - 2025-03-20
+
+- Include zip and unzip utilities in Windows package
+
 ## [v0.10.0] - 2025-03-18
 
 - Use system zip and unzip
@@ -78,6 +82,7 @@ ____
 - Initial release (beta)
 
 ____
+[v0.11.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.11.0
 [v0.10.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.10.0
 [v0.9.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.9.0
 [v0.8.3]:https://github.com/erykjj/jwlFusion/releases/tag/v0.8.3
