@@ -1,7 +1,7 @@
 const
   App = "jwlFusion"
-  Version = "0.12.0"
-  Maturity = "βητα"
+  Version = "1.0.0"
+  Maturity = "stable"
 
 #[  © 2025 Eryk J.
     This code is licensed under the Infiniti Noncommercial License.
