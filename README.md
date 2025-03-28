@@ -1,5 +1,5 @@
 <img src="res/dbFusion_wide.png" width=100%>
-<img src="res/logo_beta.png">
+<img src="res/logo_tm.png">
 
 Commandline/terminal **merge utility** for `.jwlibrary` backups created by the *JW Library* app[^1]
 
