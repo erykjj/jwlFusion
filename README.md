@@ -3,7 +3,7 @@
 
 Commandline/terminal **merge utility** for `.jwlibrary` backups created by the *JW Library* app[^1]
 
-Keep in mind that this is at BETA (testing) stage.
+Keep your originals until you've confirmed all is well ;-)
 
 By using this software you agree to abide by the terms of its [License](https://github.com/erykjj/jwlFusion#License-1-ov-file).
 
@@ -29,7 +29,12 @@ Options:
                                       if not provided, creates archive
                                       in working directory.
 ```
+____
+[![Static Badge](https://img.shields.io/badge/releases-orange?style=plastic&logo=rss&logoColor=orange&color=black)](https://github.com/erykjj/jwlFusion/releases.atom)
 
+Feel free to get in touch and post any [issues and/or suggestions](https://github.com/erykjj/jwlFusion/issues).
+
+My other *JW Library* projects: [**JWPubLib**](https://github.com/erykjj/jwpublib) and [**JWLManager**](https://github.com/erykjj/jwlmanager)
 ____
 #### Footnotes:
 [^1]: [JW Library](https://www.jw.org/en/online-help/jw-library/) is a registered trademark of *Watch Tower Bible and Tract Society of Pennsylvania*
