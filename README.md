@@ -1,6 +1,8 @@
 <img src="res/dbFusion_wide.png" width=100%>
 <img src="res/logo_tm.png">
 
+### Looking for Android/iOS programmers for a joint project
+
 Commandline/terminal **merge utility** for `.jwlibrary` backups created by the *JW Library* app[^1]
 
 Keep your originals until you've confirmed all is well ;-)
