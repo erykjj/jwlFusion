@@ -1,8 +1,6 @@
 <img src="res/dbFusion_wide.png" width=100%>
 <img src="res/logo_tm.png">
 
-## Looking for Android/iOS programmers for a joint project
-
 Commandline/terminal **merge utility** for `.jwlibrary` backups created by the *JW Library* app[^1]
 
 Keep your originals until you've confirmed all is well ;-)
@@ -36,7 +34,7 @@ ____
 
 Feel free to get in touch and post any [issues and/or suggestions](https://github.com/erykjj/jwlFusion/issues).
 
-My other *JW Library* projects: [**JWPubLib**](https://github.com/erykjj/jwpublib) and [**JWLManager**](https://github.com/erykjj/jwlmanager)
+My other *JW Library* project: [**JWLManager**](https://github.com/erykjj/jwlmanager)
 ____
 #### Footnotes:
 [^1]: [JW Library](https://www.jw.org/en/online-help/jw-library/) is a registered trademark of *Watch Tower Bible and Tract Society of Pennsylvania*
