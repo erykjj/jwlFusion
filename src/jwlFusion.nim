@@ -34,7 +34,7 @@ else: # linux
     mkdir = "mkdir -p "
     rmdir = "rm -rf "
 
-proc mergeDatabase(path1, path2: cstring): cint {.cdecl, dynlib: libName, importc.}
+proc mergeDatabase(path1, path2: cstring, errorMsg: ptr cstring): cint {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
 proc getZuluTime(): cstring {.cdecl, dynlib: libName, importc.}
 
@@ -126,7 +126,7 @@ proc createArchive(source, destination, tz: string): string =
     raise
 
 
-proc main(inputFiles: seq[string], outputFile: string) =
+proc main(inputFiles: seq[string], outputFile: string): bool =
   let original = inputFiles[0]
   let workDir = "."
   let prefix = fmt"{App}_"
@@ -137,16 +137,18 @@ proc main(inputFiles: seq[string], outputFile: string) =
   makeDir(tmpDir)
   let db1Path = unzipArchive(original, tmpDir)
   echo fmt"   Original: {original}"
+  var err: cstring
   for archive in inputFiles[1..^1]:
     echo fmt" + Merging:  {archive}"
-    let result = mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
-    if result != 0:
-      echo fmt" ! FAILED:   {archive}"
+    if mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring, addr err) != 0:
+      dealloc(err)
+      echo &" ! FAILED:   {archive}\n   --> {err}"
       removeDir(tmpDir)
-      return
+      return false
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt" = Merged:   {filename}"
   removeDir(tmpDir)
+  return true
 
 when isMainModule:
   let jwlCore = getCoreVersion()
@@ -212,5 +214,7 @@ when isMainModule:
     quit(1)
 
   echo &"\n{appName} ({Version})\n"
-  main(inputFiles, outputFile)
-  echo &"\nTime: {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n"
+  if main(inputFiles, outputFile):
+    echo &"\nTime: {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n"
+  else:
+    echo &"\nErrors encountered! Process cancelled.\n"
