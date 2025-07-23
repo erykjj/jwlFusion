@@ -4,8 +4,6 @@
 
 ### Added
 
-- Handle failed merge
-
 ### Changed
 
 ### Fixed
@@ -13,6 +11,12 @@
 ### Removed
 
 ____
+## [v1.1.0] - 2025-07-23
+### Added
+
+- Receive and output error messages from jwlCore
+- Handle failed merge
+
 ## [v1.0.0] - 2025-03-28
 
 - Stable release with jwlCore moved up to beta
@@ -97,6 +101,7 @@ ____
 - Initial release (beta)
 
 ____
+[v1.1.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.1.0
 [v1.0.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.0.0
 [v0.12.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.12.0
 [v0.11.0]:https://github.com/erykjj/jwlFusion/releases/tag/v0.11.0
