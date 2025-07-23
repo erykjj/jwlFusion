@@ -1,6 +1,6 @@
 # Package
 
-version       = "1.0.0"
+version       = "1.1.0"
 author        = "Eryk J."
 description   = "Merge one or more '.jwlibrary' archives"
 license       = "Infiniti Noncommercial License"

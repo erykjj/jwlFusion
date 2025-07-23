@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.0.0"
+  Version = "1.1.0"
   Maturity = "stable"
 
 #[  © 2025 Eryk J.
@@ -34,7 +34,7 @@ else: # linux
     mkdir = "mkdir -p "
     rmdir = "rm -rf "
 
-proc mergeDatabase(path1, path2: cstring) {.cdecl, dynlib: libName, importc.}
+proc mergeDatabase(path1, path2: cstring): cint {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
 proc getZuluTime(): cstring {.cdecl, dynlib: libName, importc.}
 
@@ -139,7 +139,11 @@ proc main(inputFiles: seq[string], outputFile: string) =
   echo fmt"   Original: {original}"
   for archive in inputFiles[1..^1]:
     echo fmt" + Merging:  {archive}"
-    mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
+    let result = mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
+    if result != 0:
+      echo fmt" ! FAILED:   {archive}"
+      removeDir(tmpDir)
+      return
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt" = Merged:   {filename}"
   removeDir(tmpDir)
