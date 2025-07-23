@@ -17,6 +17,9 @@ ____
 - Receive and output error messages from jwlCore
 - Handle failed merge
 
+### Changed
+- Updated jwlCore libs to v0.2.0
+
 ## [v1.0.0] - 2025-03-28
 
 - Stable release with jwlCore moved up to beta
