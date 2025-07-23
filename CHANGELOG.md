@@ -4,6 +4,8 @@
 
 ### Added
 
+- Handle failed merge
+
 ### Changed
 
 ### Fixed
