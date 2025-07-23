@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.1.0"
+  Version = "1.1.1"
   Maturity = "stable"
 
 #[  © 2025 Eryk J.
@@ -141,8 +141,8 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
   for archive in inputFiles[1..^1]:
     echo fmt" + Merging:  {archive}"
     if mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring, addr err) != 0:
-      dealloc(err)
       echo &" ! FAILED:   {archive}\n   --> {err}"
+      dealloc(err)
       removeDir(tmpDir)
       return false
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
