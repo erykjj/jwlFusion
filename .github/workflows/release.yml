@@ -1,4 +1,4 @@
-name: 'Draft Release v1.0.2'
+name: 'Draft Release v1.0.3'
 
 on:
   push:
@@ -68,7 +68,7 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          draft: true
+          # draft: true
           body: |
             ${{ steps.extract.outputs.changelog_section }}
           files: |
