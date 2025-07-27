@@ -1,4 +1,4 @@
-name: 'Draft Release v1.0.3'
+name: 'Draft Release v1.1.0'
 
 on:
   push:
@@ -77,4 +77,4 @@ jobs:
             dist/jwlFusion_macos_x86_64.tar.gz
             dist/jwlFusion_macos_arm64.tar.gz
             dist/jwlFusion_windows_amd64.zip
-          # dist/jwlFusion_windows_arm64.zip
+            dist/jwlFusion_windows_arm64.zip
