@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.1.2"
+  Version = "1.3.0"
   Maturity = "stable"
 
 #[  © 2025 Eryk J.
@@ -34,10 +34,10 @@ else: # linux
     mkdir = "mkdir -p "
     rmdir = "rm -rf "
 
-proc mergeDatabase(path1, path2: cstring, errorMsg: ptr cstring): cint {.cdecl, dynlib: libName, importc.}
+proc mergeDatabase(path1, path2: cstring): cint {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
 proc getZuluTime(): cstring {.cdecl, dynlib: libName, importc.}
-
+proc getLastResult(): cstring {.cdecl, dynlib: libName, importc.}
 
 var fileCounter: int = 0
 
@@ -137,14 +137,19 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
   makeDir(tmpDir)
   let db1Path = unzipArchive(original, tmpDir)
   echo fmt"   Original: {original}"
-  var err: cstring
+  var status: cint
+  var msg: cstring
   for archive in inputFiles[1..^1]:
-    echo fmt" + Merging:  {archive}"
-    if mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring, addr err) != 0:
-      echo &" ! FAILED:   {archive}\n   --> {err}"
-      dealloc(err)
+    stdout.write(fmt" + Merging:  {archive} ... ")
+    stdout.flushFile()
+    status = mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
+    msg = getLastResult()
+    if status != 0:
+      echo &"FAILED!\n   --> {msg}"
       removeDir(tmpDir)
       return false
+    else:
+      echo msg
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   echo fmt" = Merged:   {filename}"
   removeDir(tmpDir)
