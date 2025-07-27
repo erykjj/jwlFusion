@@ -4,6 +4,8 @@
 
 ### Added
 
+- Added Windows ARM64 build (needs testing)
+
 ### Changed
 
 - Use different result message passing
