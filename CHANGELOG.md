@@ -6,6 +6,7 @@
 
 ### Changed
 
+- Use different result message passing
 - Updated jwlCore libs to v0.4.0
 
 ### Fixed
