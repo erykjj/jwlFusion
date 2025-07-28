@@ -1,4 +1,4 @@
-name: 'macOS-arm64 v1.0.2'
+name: 'macOS-arm64 v1.1.0'
 
 on:
   workflow_call:
@@ -46,7 +46,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          nimble install -y --depsOnly
+          nimble install -y nimcrypto
           rm -rf dist/*
           mkdir -p dist
           mkdir -p dist/lib
