@@ -4,18 +4,23 @@
 
 ### Added
 
-- Added Windows ARM64 build (needs testing)
-
 ### Changed
-
-- Use different result message passing
-- Updated jwlCore libs to v0.4.0
 
 ### Fixed
 
 ### Removed
 
 ____
+## [v1.3.0] - 2025-07-29
+### Added
+
+- Added Windows ARM64 build (needs testing)
+
+### Changed
+
+- Use different result message passing
+- Updated jwlCore libs to v0.6.0
+
 ## [v1.1.2] - 2025-07-23
 ### Changed
 
