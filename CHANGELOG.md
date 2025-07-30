@@ -11,7 +11,12 @@
 ### Removed
 
 ____
-## [v1.3.0] - 2025-07-29
+## [v1.4.0] - 2025-07-30
+### Changed
+
+- Updated jwlCore libs to v0.8.0 (Android-ready)
+
+## [v1.3.0] - 2025-07-27
 ### Added
 
 - Added Windows ARM64 build (needs testing)
@@ -128,6 +133,8 @@ ____
 - Initial release (beta)
 
 ____
+[v1.4.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.4.0
+[v1.3.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.3.0
 [v1.1.2]:https://github.com/erykjj/jwlFusion/releases/tag/v1.1.2
 [v1.1.1]:https://github.com/erykjj/jwlFusion/releases/tag/v1.1.1
 [v1.1.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.1.0
