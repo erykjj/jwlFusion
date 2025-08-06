@@ -1,14 +1,15 @@
-# Infiniti Noncommercial License
+# Infiniti Noncommercial License v1.0
 
 ## Grant of License
 The licensor grants you a non-exclusive, non-transferable, perpetual license to:
 - Use the software for personal, non-commercial purposes.
-- Modify the software for personal, non-commercial use only.
+- Modify the provided source code for personal, non-commercial use only.
+- Use any binary releases (e.g., APK files) as-is, without modification, for personal, non-commercial purposes.
 
 ## Restrictions
 You are expressly **prohibited** from:
 - Sharing, distributing, publishing, or otherwise making available the original software or any derivative works, in whole or in part, to any third party.
-- Using the software or any derivative works for commercial purposes.
+- Using the software, source code, or any derivative works for commercial purposes.
 - Reverse-engineering, decompiling, or disassembling the software.
 
 ## Ownership
