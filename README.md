@@ -32,6 +32,8 @@ Options:
                                       if not provided, creates archive
                                       in working directory.
 ```
+Note that the archive provided later "over-writes" the previous, so the most "definitive" should be listed last. To illustrate, assume all archives have a note at the same location and with the same title, but the note content is different in each. The last one will be the one that is used in the merged archive.
+
 ____
 [![Static Badge](https://img.shields.io/badge/releases-orange?style=plastic&logo=rss&logoColor=orange&color=black)](https://github.com/erykjj/jwlFusion/releases.atom)
 
