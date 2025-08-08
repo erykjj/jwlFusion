@@ -39,7 +39,7 @@ ____
 
 Feel free to get in touch and post any [issues and/or suggestions](https://github.com/erykjj/jwlFusion/issues).
 
-My other *JW Library* project: [**JWLManager**](https://github.com/erykjj/jwlmanager)
+My other *JW Library* projects: [**JWLManager**](https://github.com/erykjj/jwlmanager) & [**jwlFusion** (Android)](https://github.com/erykjj/jwlFusion-app)
 ____
 #### Footnotes:
 [^1]: [JW Library](https://www.jw.org/en/online-help/jw-library/) is a registered trademark of *Watch Tower Bible and Tract Society of Pennsylvania*
