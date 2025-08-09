@@ -18,7 +18,7 @@ By using this software you agree to abide by the terms of its [License](https://
 - [Windows (amd64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_windows_amd64.zip)
 - [Windows (ARM64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_windows_arm64.zip) (please test and report)
 
-- Android (coming soon)
+- Android: see [here](https://github.com/erykjj/jwlFusion-app)
 
 ## Usage
 
