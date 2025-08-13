@@ -15,7 +15,7 @@ ____
 
 ### Changed
 
-- Updated jwlCore libs to v0.8.0
+- Updated jwlCore libs to v0.9.0
   - Improved Bookmark merge
 
 ## [v1.4.0] - 2025-07-30
