@@ -6,15 +6,22 @@
 
 ### Changed
 
-- Updated jwlCore libs to v0.10.0
-
 ### Fixed
 
 ### Removed
 
 ____
-## [v1.5.0] - 2025-08-13
+## [v1.6.0] - 2025-08-15
+### Added
 
+- Added more progress feedback
+
+### Changed
+
+- Updated jwlCore libs to v0.10.0
+- Using faster zip compression
+
+## [v1.5.0] - 2025-08-13
 ### Changed
 
 - Updated jwlCore libs to v0.9.0
@@ -142,6 +149,7 @@ ____
 - Initial release (beta)
 
 ____
+[v1.6.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.6.0
 [v1.5.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.5.0
 [v1.4.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.4.0
 [v1.3.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.3.0
