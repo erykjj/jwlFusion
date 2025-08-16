@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.5.0"
+  Version = "1.6.0"
   Maturity = "stable"
 
 #[  © 2025 Eryk J.
@@ -34,12 +34,23 @@ else: # linux
     mkdir = "mkdir -p "
     rmdir = "rm -rf "
 
+
+type ProgressCallback = proc(step: cint) {.cdecl.}
+
+let
+  spinner = ['\\', '|', '/', '-']
+
+var
+  spinIndex = 0
+  fileCounter: int = 0
+
+
 proc mergeDatabase(path1, path2: cstring): cint {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
 proc getZuluTime(): cstring {.cdecl, dynlib: libName, importc.}
 proc getLastResult(): cstring {.cdecl, dynlib: libName, importc.}
+proc setProgressCallback(cb: ProgressCallback) {.cdecl, dynlib: libName, importc.}
 
-var fileCounter: int = 0
 
 proc randomSuffix(length: int): string =
   const
@@ -126,7 +137,14 @@ proc createArchive(source, destination, tz: string): string =
     raise
 
 
+proc progressIndicator(step: cint) {.cdecl.} =
+  stdout.write(spinner[spinIndex], "\b")
+  stdout.flushFile()
+  spinIndex = (spinIndex + 1) mod 4
+
+
 proc main(inputFiles: seq[string], outputFile: string): bool =
+  setProgressCallback(progressIndicator)
   let original = inputFiles[0]
   let workDir = "."
   let prefix = fmt"{App}_"
@@ -135,8 +153,9 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = "." & sep & fmt".{App}_" & randomSuffix(10)
   makeDir(tmpDir)
+  stdout.write(fmt"   Original: {original} ... ")
   let db1Path = unzipArchive(original, tmpDir)
-  echo fmt"   Original: {original}"
+  echo "Unpacked"
   var status: cint
   var msg: cstring
   for archive in inputFiles[1..^1]:
@@ -150,7 +169,10 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
       return false
     else:
       echo msg
+  stdout.write(fmt"   Packing:  ")
+  stdout.flushFile()
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
+  echo "Done"
   echo fmt" = Merged:   {filename}"
   removeDir(tmpDir)
   return true
