@@ -81,7 +81,7 @@ proc removeDir(dir: string) =
 
 
 proc zipUp(archive, dir: string) =
-  let zip = &"zip -qj9 {archive} {dir}" & sep & "*"
+  let zip = &"zip -qj {archive} {dir}" & sep & "*"
   if execShellCmd(zip) != 0:
     echo "Failed to zip directory: ", dir
     raise
