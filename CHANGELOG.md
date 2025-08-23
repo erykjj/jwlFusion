@@ -11,6 +11,12 @@
 ### Removed
 
 ____
+## [v1.9.0] - 2025-08-23
+### Changed
+
+- Updated jwlCore libs to v0.13.0
+  - Compare Notes on GUID only
+
 ## [v1.8.0] - 2025-08-22
 ### Changed
 
@@ -159,6 +165,7 @@ ____
 - Initial release (beta)
 
 ____
+[v1.9.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.9.0
 [v1.8.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.8.0
 [v1.7.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.7.0
 [v1.6.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.6.0
