@@ -6,7 +6,7 @@
 
 ### Changed
 
-- Updated jwlCore libs to v0.14.0
+- Updated jwlCore libs to v0.15.0
   - adjusted ID for macOS libs
 
 ### Fixed
