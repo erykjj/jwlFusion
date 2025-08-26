@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.10.0"
+  Version = "1.10.1"
   Maturity = "stable"
 
 #[  © 2025 Eryk J.
@@ -240,7 +240,7 @@ when isMainModule:
     echo appHelp
     quit(1)
 
-  echo &"\n{appName} ({Version})\n"
+  echo &"\n{appName} (v{Version})\n"
   if main(inputFiles, outputFile):
     echo &"\nTime: {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n"
   else:
