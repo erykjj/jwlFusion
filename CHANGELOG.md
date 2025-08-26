@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Updated jwlCore libs to v0.14.0
+
 ### Fixed
 
 ### Removed
