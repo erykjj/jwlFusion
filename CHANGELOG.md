@@ -6,14 +6,17 @@
 
 ### Changed
 
-- Updated jwlCore libs to v0.15.0
-  - adjusted ID for macOS libs
-
 ### Fixed
 
 ### Removed
 
 ____
+## [v1.10.0] - 2025-08-26
+## Changed
+
+- Updated jwlCore libs to v0.15.0
+  - adjusted ID for macOS libs
+
 ## [v1.9.0] - 2025-08-23
 ### Changed
 
@@ -168,6 +171,7 @@ ____
 - Initial release (beta)
 
 ____
+[v1.10.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.0
 [v1.9.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.9.0
 [v1.8.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.8.0
 [v1.7.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.7.0
