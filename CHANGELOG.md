@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Adjust version string
+
 ### Fixed
 
 ### Removed
