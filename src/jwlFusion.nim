@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.10.2"
+  Version = "1.10.3"
   Maturity = "stable"
 
 #[  © 2025 Eryk J.
@@ -98,6 +98,9 @@ proc unzipArchive(archive, tmpDir: string): string =
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
     makeDir(path)
+    setFilePermissions(path, {fpUserRead, fpUserWrite, fpUserExec, 
+                             fpGroupRead, fpGroupWrite, fpGroupExec,
+                             fpOthersRead, fpOthersWrite, fpOthersExec})
     zipDown(archive, path)
 
     return path
