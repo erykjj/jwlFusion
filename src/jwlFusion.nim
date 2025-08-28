@@ -98,9 +98,9 @@ proc unzipArchive(archive, tmpDir: string): string =
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
     makeDir(path)
-    # setFilePermissions(path, {fpUserRead, fpUserWrite, fpUserExec, 
-    #                          fpGroupRead, fpGroupWrite, fpGroupExec,
-    #                          fpOthersRead, fpOthersWrite, fpOthersExec})
+    setFilePermissions(path, {fpUserRead, fpUserWrite, fpUserExec, 
+                             fpGroupRead, fpGroupWrite, fpGroupExec,
+                             fpOthersRead, fpOthersWrite, fpOthersExec})
     zipDown(archive, path)
     when defined(macosx):
       setFilePermissions(path.string & "/userData.db",
