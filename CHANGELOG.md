@@ -11,6 +11,11 @@
 ### Removed
 
 ____
+## [v1.10.3] - 2025-08-28
+### Added
+
+- Set permissions on temp folder in macOS
+
 ## [v1.10.2] - 2025-08-28
 ### Changed
 
@@ -182,6 +187,7 @@ ____
 - Initial release (beta)
 
 ____
+[v1.10.3]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.3
 [v1.10.2]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.2
 [v1.10.1]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.1
 [v1.10.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.0
