@@ -102,7 +102,7 @@ proc unzipArchive(archive, tmpDir: string): string =
                              fpGroupRead, fpGroupWrite, fpGroupExec,
                              fpOthersRead, fpOthersWrite, fpOthersExec})
     zipDown(archive, path)
-    setFilePermissions(joinPath(path, "userData.db"),
+    setFilePermissions(ospaths2.joinPath(path, "userData.db"),
       {fpUserRead, fpUserWrite, fpUserExec, 
       fpGroupRead, fpGroupWrite, fpGroupExec,
       fpOthersRead, fpOthersWrite, fpOthersExec})
