@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.10.3"
+  Version = "1.10.3-beta"
   Maturity = "stable"
 
 #[  © 2025 Eryk J.
@@ -11,7 +11,7 @@ const
 
 
 import
-  std/[json, os, private/ospaths2, random, strformat, strutils, times],
+  std/[json, os, random, strformat, strutils, times],
   nimcrypto, parseopt
 
 
@@ -102,10 +102,11 @@ proc unzipArchive(archive, tmpDir: string): string =
                              fpGroupRead, fpGroupWrite, fpGroupExec,
                              fpOthersRead, fpOthersWrite, fpOthersExec})
     zipDown(archive, path)
-    setFilePermissions(ospaths2.joinPath(path, "userData.db"),
-      {fpUserRead, fpUserWrite, fpUserExec, 
-      fpGroupRead, fpGroupWrite, fpGroupExec,
-      fpOthersRead, fpOthersWrite, fpOthersExec})
+    when defined(macosx):
+      setFilePermissions(path + "/userData.db",
+        {fpUserRead, fpUserWrite, fpUserExec, 
+        fpGroupRead, fpGroupWrite, fpGroupExec,
+        fpOthersRead, fpOthersWrite, fpOthersExec})
 
     return path
   except Exception as e:
