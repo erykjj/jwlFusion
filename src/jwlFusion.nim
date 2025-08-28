@@ -11,7 +11,7 @@ const
 
 
 import
-  std/[json, os, random, strformat, strutils, times],
+  std/[json, os, private/ospaths2, random, strformat, strutils, times],
   nimcrypto, parseopt
 
 
