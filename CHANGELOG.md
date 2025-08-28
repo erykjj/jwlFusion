@@ -6,13 +6,17 @@
 
 ### Changed
 
-- Adjust version string
-
 ### Fixed
 
 ### Removed
 
 ____
+## [v1.10.1] - 2025-08-28
+### Changed
+
+- Adjust version string
+- Changed signature on jwlCore for macOS
+
 ## [v1.10.0] - 2025-08-26
 ## Changed
 
@@ -173,6 +177,7 @@ ____
 - Initial release (beta)
 
 ____
+[v1.10.1]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.1
 [v1.10.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.0
 [v1.9.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.9.0
 [v1.8.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.8.0
