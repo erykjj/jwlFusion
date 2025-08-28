@@ -23,7 +23,7 @@ By using this software you agree to abide by the terms of its [License](https://
 NOTE: The **macOS** binaries need to have all extended attributes (including the the Gatekeeper quarantine flag) removed:
 ```
 > xattr -c jwlFusion
-> xattr -c jwlCore.dylib
+> xattr -c libjwlCore.dylib
 ```
 
 ```
