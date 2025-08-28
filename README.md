@@ -20,6 +20,11 @@ By using this software you agree to abide by the terms of its [License](https://
 
 ## Usage
 
+NOTE: The **macOS** binaries need to have all extended attributes (including the the Gatekeeper quarantine flag) removed:
+- either the whole downloaded package, with `xattr -cr jwlFusion*.tar.gz`
+- or individually, with `xattr -cr jwlFusion` and `xattr -cr jwlCore.dylib`
+
+
 ```
 Usage: jwlFusion [-h | -v]  [-o:output] <original archive> <merge archive> [<merge archive>...]
 
