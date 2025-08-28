@@ -68,7 +68,7 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          # draft: true
+          draft: true
           body: |
             ${{ steps.extract.outputs.changelog_section }}
           files: |
