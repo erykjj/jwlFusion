@@ -103,7 +103,7 @@ proc unzipArchive(archive, tmpDir: string): string =
                              fpOthersRead, fpOthersWrite, fpOthersExec})
     zipDown(archive, path)
     when defined(macosx):
-      setFilePermissions(path + "/userData.db",
+      setFilePermissions(path.string + "/userData.db",
         {fpUserRead, fpUserWrite, fpUserExec, 
         fpGroupRead, fpGroupWrite, fpGroupExec,
         fpOthersRead, fpOthersWrite, fpOthersExec})
