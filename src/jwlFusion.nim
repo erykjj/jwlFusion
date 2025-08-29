@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.10.3-beta"
+  Version = "1.10.4"
   Maturity = "stable"
 
 #[  © 2025 Eryk J.
@@ -97,17 +97,6 @@ proc unzipArchive(archive, tmpDir: string): string =
   try:
     let path = tmpDir & sep & fmt"{App}_{fileCounter}"
     inc(fileCounter)
-    makeDir(path)
-    setFilePermissions(path, {fpUserRead, fpUserWrite, fpUserExec, 
-                             fpGroupRead, fpGroupWrite, fpGroupExec,
-                             fpOthersRead, fpOthersWrite, fpOthersExec})
-    zipDown(archive, path)
-    when defined(macosx):
-      setFilePermissions(path.string & "/userData.db",
-        {fpUserRead, fpUserWrite, fpUserExec, 
-        fpGroupRead, fpGroupWrite, fpGroupExec,
-        fpOthersRead, fpOthersWrite, fpOthersExec})
-
     return path
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
@@ -161,13 +150,15 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
     outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = "." & sep & fmt".{App}_" & randomSuffix(10)
   makeDir(tmpDir)
-  stdout.write(fmt"   Original: {original} ... ")
+  var parts = original.split(sep) 
+  stdout.write(fmt"   Original: {parts[^1]} ... ")
   let db1Path = unzipArchive(original, tmpDir)
   echo "Unpacked"
   var status: cint
   var msg: cstring
   for archive in inputFiles[1..^1]:
-    stdout.write(fmt" + Merging:  {archive} ... ")
+    parts = archive.split(sep)
+    stdout.write(fmt" + Merging:  {parts[^1]} ... ")
     stdout.flushFile()
     status = mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
     msg = getLastResult()
@@ -177,11 +168,11 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
       return false
     else:
       echo msg
-  stdout.write(fmt"   Packing:  ")
+  stdout.write(fmt" = Merged:   ")
   stdout.flushFile()
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
-  echo "Done"
-  echo fmt" = Merged:   {filename}"
+  parts = filename.split(sep)
+  echo parts[^1]
   removeDir(tmpDir)
   return true
 
