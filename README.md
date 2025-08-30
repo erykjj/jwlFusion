@@ -12,8 +12,7 @@ By using this software you agree to abide by the terms of its [License](https://
 - [Linux (x86_64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_linux_x86_64.tgz)
 - [Linux (ARM64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_linux_arm64.tgz)
 
-- [macOS (x86_64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_macos_x86_64.tar.gz)
-- [macOS (ARM64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_macos_arm64.tar.gz)
+- [macOS (universal)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_macos.tar.gz)
 
 - [Windows (amd64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_windows_amd64.zip)
 - [Windows (ARM64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_windows_arm64.zip)
