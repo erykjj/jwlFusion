@@ -4,7 +4,11 @@
 
 ### Added
 
+- Check for old schema
+
 ### Changed
+
+- Adjusted path joining (troublesome on macOS)
 
 ### Fixed
 
