@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.10.4"
+  Version = "1.11.0"
   Maturity = "stable"
 
 #[  © 2025 Eryk J.
