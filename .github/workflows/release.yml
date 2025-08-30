@@ -1,4 +1,4 @@
-name: 'Draft Release v1.1.0'
+name: 'Draft Release v1.2.0'
 
 on:
   push:
@@ -10,17 +10,13 @@ jobs:
     uses: ./.github/workflows/build_lin.yml
     with:
       TAG: ${{ github.ref_name }}
-  macos-arm64:
-    uses: ./.github/workflows/build_mac_arm64.yml
-    with:
-      TAG: ${{ github.ref_name }}
-  macos-x86_64:
-    uses: ./.github/workflows/build_mac_x86_64.yml
+  macos:
+    uses: ./.github/workflows/build_mac.yml
     with:
       TAG: ${{ github.ref_name }}
   release:
     name: Create release draft
-    needs: [linux-windows, macos-arm64, macos-x86_64]
+    needs: [linux-windows, macos]
     runs-on: ubuntu-latest
     outputs:
       changelog-section: ${{ steps.extract.outputs.changelog_section }}
@@ -74,7 +70,6 @@ jobs:
           files: |
             dist/jwlFusion_linux_x86_64.tgz
             dist/jwlFusion_linux_arm64.tgz
-            dist/jwlFusion_macos_x86_64.tar.gz
-            dist/jwlFusion_macos_arm64.tar.gz
+            dist/jwlFusion_macos.tar.gz
             dist/jwlFusion_windows_amd64.zip
             dist/jwlFusion_windows_arm64.zip
