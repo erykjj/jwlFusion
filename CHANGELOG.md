@@ -11,7 +11,7 @@
 ### Removed
 
 ____
-## [v1.10.4] - 2025-08-30
+## [v1.11.0] - 2025-08-30
 ### Added
 
 - Check for old schema
@@ -197,7 +197,7 @@ ____
 - Initial release (beta)
 
 ____
-[v1.10.4]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.4
+[v1.11.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.11.0
 [v1.10.3]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.3
 [v1.10.2]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.2
 [v1.10.1]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.1
