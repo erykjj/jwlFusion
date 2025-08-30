@@ -68,6 +68,12 @@ proc sha256File(filename: string): string =
   let digest = ctx.finish()
   return digest.data.toHex(lowercase = true)
 
+proc joinPaths(path, file: string): string =
+  if path.endsWith(sep):
+    return path[0..^2] & sep & file
+  else:
+    return path & sep & file
+
 
 proc makeDir(dir: string) =
   if execShellCmd(mkdir & dir) != 0:
@@ -94,16 +100,13 @@ proc zipDown(archive, dir: string) =
 
 
 proc unzipArchive(archive, tmpDir: string): string =
-  let path = tmpDir & sep & fmt"{App}_{fileCounter}"
+  let path = joinPaths(tmpDir, fmt"{App}_{fileCounter}")
   inc(fileCounter)
-  try:
-    zipDown(archive, path)
-  except Exception as e:
-    echo &"ERROR extracting '{archive}':\n{e.msg}"
-    raise
+  makeDir(path)
+  zipDown(archive, path)
 
   var manifest: JsonNode
-  let manifestFile = path & sep & "manifest.json"
+  let manifestFile = joinPaths(path, "manifest.json")
   manifest = parseFile(manifestFile)
   if manifest.hasKey("userDataBackup"):
     let userDataBackup = manifest["userDataBackup"]
@@ -116,14 +119,14 @@ proc unzipArchive(archive, tmpDir: string): string =
 proc createArchive(source, destination, tz: string): string =
   try:
     var manifest: JsonNode
-    let manifestFile = source & sep & "manifest.json"
+    let manifestFile = joinPaths(source, "manifest.json")
     manifest = parseFile(manifestFile)
     manifest["name"] = %App
     manifest["creationDate"] = %tz
     manifest["userDataBackup"]["deviceName"] = %fmt"{App}_v{Version}"
     manifest["userDataBackup"]["lastModifiedDate"] = %tz
 
-    let dbFile = source & sep & "userData.db"
+    let dbFile = joinPaths(source, "userData.db")
     let hash = sha256File(dbFile)
     manifest["userDataBackup"]["hash"] = %hash
     manifest["userDataBackup"]["databaseName"] = %"userData.db"
@@ -132,7 +135,7 @@ proc createArchive(source, destination, tz: string): string =
     file.write($manifest)
     file.close()
 
-    for file in walkFiles(source & sep & "*"):
+    for file in walkFiles(joinPaths(source, "*")):
       setFilePermissions(file, {fpUserRead, fpUserWrite, fpGroupRead, fpGroupWrite, fpOthersRead})
     zipUp(destination, source)
 
@@ -156,8 +159,8 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
   let prefix = fmt"{App}_"
   var outArchive = outputFile
   if outArchive == "":
-    outArchive = workDir & sep & prefix & now().format("yyyy-MM-dd") & ".jwlibrary"
-  let tmpDir = "." & sep & fmt".{App}_" & randomSuffix(10)
+    outArchive = joinPaths(workDir, prefix) & now().format("yyyy-MM-dd") & ".jwlibrary"
+  let tmpDir = joinPaths(".", fmt".{App}_" & randomSuffix(10))
   makeDir(tmpDir)
   var parts = original.split(sep) 
   stdout.write(fmt"   Original: {parts[^1]} ... ")
