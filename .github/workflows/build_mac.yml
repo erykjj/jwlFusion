@@ -1,4 +1,4 @@
-name: 'macOS-arm64 v1.1.0'
+name: 'macOS v1.2.0'
 
 on:
   workflow_call:
@@ -41,7 +41,7 @@ jobs:
       - name: Set up Nim
         uses: jiro4989/setup-nim-action@v2
         with:
-          nim-version: '2.2.0'
+          nim-version: '2.2.4'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Dependencies
@@ -53,18 +53,20 @@ jobs:
 
       - name: Compile and package
         run: |
-          nim c -d:macos -d:strip -d:release --out:dist/jwlFusion src/jwlFusion.nim
-          install_name_tool -add_rpath @executable_path dist/jwlFusion
-          otool -l dist/jwlFusion | grep -A2 LC_RPATH
-          cp lib/libjwlCore-arm64.dylib dist/libjwlCore.dylib
+          nim c -d:macos -d:strip -d:release --out:jwlFusion-arm64 src/jwlFusion.nim
+          install_name_tool -add_rpath @executable_path jwlFusion-arm64
+          nim c -d:macos -d:strip -d:release -l:'-target amd64-darwin' -t:'-target amd64-darwin' --out:jwlFusion-x86_64 src/jwlFusion.nim
+          install_name_tool -add_rpath @executable_path jwlFusion-x86_64
+          lipo -create -output dist/jwlFusion jwlFusion-x86_64 jwlFusion-arm64
+          cp lib/libjwlCore.dylib dist/libjwlCore.dylib
           chmod +x dist/jwlFusion
           chmod +x dist/libjwlCore.dylib
           xattr -c dist/libjwlCore.dylib
           xattr -c dist/jwlFusion
-          tar -czvf dist/jwlFusion_macos_arm64.tar.gz -C dist jwlFusion libjwlCore.dylib
+          tar -czvf dist/jwlFusion_macos.tar.gz -C dist jwlFusion libjwlCore.dylib
 
-      - name: Upload binary for arm64
+      - name: Upload binary
         uses: actions/upload-artifact@v4
         with:
-          name: jwlFusion_macos_arm64.tar.gz
-          path: dist/jwlFusion_macos_arm64.tar.gz
+          name: jwlFusion_macos.tar.gz
+          path: dist/jwlFusion_macos.tar.gz
