@@ -94,17 +94,26 @@ proc zipDown(archive, dir: string) =
 
 
 proc unzipArchive(archive, tmpDir: string): string =
+  let path = tmpDir & sep & fmt"{App}_{fileCounter}"
+  inc(fileCounter)
   try:
-    let path = tmpDir & sep & fmt"{App}_{fileCounter}"
-    inc(fileCounter)
-    return path
+    zipDown(archive, path)
   except Exception as e:
     echo &"ERROR extracting '{archive}':\n{e.msg}"
     raise
 
+  var manifest: JsonNode
+  let manifestFile = path & sep & "manifest.json"
+  manifest = parseFile(manifestFile)
+  if manifest.hasKey("userDataBackup"):
+    let userDataBackup = manifest["userDataBackup"]
+    let schema = if userDataBackup.hasKey("schemaVersion"): userDataBackup["schemaVersion"].getInt else: 0
+    if schema > 11:
+      return path
+  echo "Old schema version!"
+  return ""
+
 proc createArchive(source, destination, tz: string): string =
-
-
   try:
     var manifest: JsonNode
     let manifestFile = source & sep & "manifest.json"
@@ -153,6 +162,9 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
   var parts = original.split(sep) 
   stdout.write(fmt"   Original: {parts[^1]} ... ")
   let db1Path = unzipArchive(original, tmpDir)
+  if db1Path == "":
+    removeDir(tmpDir)
+    return false
   echo "Unpacked"
   var status: cint
   var msg: cstring
@@ -160,7 +172,11 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
     parts = archive.split(sep)
     stdout.write(fmt" + Merging:  {parts[^1]} ... ")
     stdout.flushFile()
-    status = mergeDatabase(db1Path.cstring, unzipArchive(archive, tmpDir).cstring)
+    let db2Path = unzipArchive(archive, tmpDir)
+    if db2Path == "":
+      removeDir(tmpDir)
+      return false
+    status = mergeDatabase(db1Path.cstring, db2Path.cstring)
     msg = getLastResult()
     if status != 0:
       echo &"FAILED!\n   --> {msg}"
