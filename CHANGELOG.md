@@ -7,6 +7,7 @@
 ### Changed
 
 - Show merged archive with full path
+- Cosmetic fixes
 
 ### Fixed
 
