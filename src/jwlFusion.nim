@@ -191,8 +191,7 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
   stdout.write(fmt" = Merged:   ")
   stdout.flushFile()
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
-  parts = filename.split(sep)
-  echo parts[^1]
+  echo filename
   removeDir(tmpDir)
   return true
 
