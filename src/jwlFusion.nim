@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.11.0"
+  Version = "1.12.0"
   Maturity = "stable"
 
 #[  © 2025 Eryk J.
@@ -118,10 +118,11 @@ proc unzipArchive(archive, tmpDir: string): string =
 
 proc createArchive(source, destination, tz: string): string =
   try:
+    let parts = destination.split(sep) 
     var manifest: JsonNode
     let manifestFile = joinPaths(source, "manifest.json")
     manifest = parseFile(manifestFile)
-    manifest["name"] = %App
+    manifest["name"] = %parts[^1]
     manifest["creationDate"] = %tz
     manifest["userDataBackup"]["deviceName"] = %fmt"{App}_v{Version}"
     manifest["userDataBackup"]["lastModifiedDate"] = %tz
