@@ -54,10 +54,9 @@ jobs:
       - name: Compile and package
         run: |
           nim c -d:macos -d:strip -d:release --out:jwlFusion-arm64 src/jwlFusion.nim
-          install_name_tool -add_rpath @executable_path jwlFusion-arm64
           nim c -d:macos -d:strip -d:release -l:'-target x86_64-darwin' -t:'-target x86_64-darwin' --out:jwlFusion-x86_64 src/jwlFusion.nim
-          install_name_tool -add_rpath @executable_path jwlFusion-x86_64
           lipo -create -output dist/jwlFusion jwlFusion-x86_64 jwlFusion-arm64
+          install_name_tool -add_rpath @executable_path dist/jwlFusion
           cp lib/libjwlCore.dylib dist/libjwlCore.dylib
           chmod +x dist/jwlFusion
           chmod +x dist/libjwlCore.dylib
