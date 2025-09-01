@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Show merged archive with full path
+
 ### Fixed
 
 - Correct archive name in manifest
