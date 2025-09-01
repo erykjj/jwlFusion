@@ -1,7 +1,6 @@
 const
   App = "jwlFusion"
   Version = "1.13.0"
-  Maturity = "stable"
 
 #[  © 2025 Eryk J.
     This code is licensed under the Infiniti Noncommercial License.
@@ -251,7 +250,7 @@ when isMainModule:
     echo appHelp
     quit(0)
   if showVersion:
-    echo &"\n{App} {Maturity} v{Version}\n{$jwlCore}\n© 2025 Eryk J.\n"
+    echo &"\n{App} v{Version}\n{$jwlCore}\n© 2025 Eryk J.\n"
     quit(0)
 
   if inputFiles.len < 2:
