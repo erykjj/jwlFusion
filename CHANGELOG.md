@@ -8,6 +8,8 @@
 
 ### Fixed
 
+- Correct archive name in manifest
+
 ### Removed
 
 ____
