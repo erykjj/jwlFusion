@@ -200,7 +200,7 @@ when isMainModule:
   let
     t = cpuTime()
     t1 = epochTime()
-    appName = getAppFilename().splitFile().name
+    appName = getAppFilename().split(sep)[^1]
     appHelp = unindent(fmt"""
       
       Merge one or more '.jwlibrary' archives.
