@@ -6,6 +6,20 @@
 
 ### Changed
 
+### Fixed
+
+### Removed
+
+____
+## [v1.13.0] - 2025-09-02
+### Changed
+
+- Updated jwlCore libs to v0.20.0
+- Cosmetic fixes
+
+## [v1.12.0] - 2025-09-01
+### Changed
+
 - Show merged archive with full path
 - Cosmetic fixes
 
@@ -13,9 +27,6 @@
 
 - Correct archive name in manifest
 
-### Removed
-
-____
 ## [v1.11.0] - 2025-08-30
 ### Added
 
@@ -202,6 +213,8 @@ ____
 - Initial release (beta)
 
 ____
+[v1.13.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.13.0
+[v1.12.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.12.0
 [v1.11.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.11.0
 [v1.10.3]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.3
 [v1.10.2]:https://github.com/erykjj/jwlFusion/releases/tag/v1.10.2
