@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.13.0"
+  Version = "1.14.0"
 
 #[  © 2025 Eryk J.
     This code is licensed under the Infiniti Noncommercial License.
