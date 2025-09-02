@@ -162,7 +162,7 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
     outArchive = joinPaths(workDir, prefix) & now().format("yyyy-MM-dd") & ".jwlibrary"
   let tmpDir = joinPaths(".", fmt".{App}_" & randomSuffix(10))
   makeDir(tmpDir)
-  var parts = original.split(sep) 
+  var parts = original.rsplit(".", 1)[0].split(sep)
   stdout.write(fmt"   Original: {parts[^1]} ... ")
   let db1Path = unzipArchive(original, tmpDir)
   if db1Path == "":
@@ -172,7 +172,7 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
   var status: cint
   var msg: cstring
   for archive in inputFiles[1..^1]:
-    parts = archive.split(sep)
+    parts = archive.rsplit(".", 1)[0].split(sep)
     stdout.write(fmt" + Merging:  {parts[^1]} ... ")
     stdout.flushFile()
     let db2Path = unzipArchive(archive, tmpDir)
