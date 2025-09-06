@@ -5,8 +5,6 @@ Commandline/terminal **merge utility** for `.jwlibrary` backups created by the *
 
 Keep your originals until you've confirmed all is well ;-)
 
-By using this software you agree to abide by the terms of its [License](https://github.com/erykjj/jwlFusion#License-1-ov-file).
-
 ## Downloads
 
 - [Linux (x86_64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_linux_x86_64.tgz)
@@ -18,12 +16,6 @@ By using this software you agree to abide by the terms of its [License](https://
 - [Windows (ARM64)](https://github.com/erykjj/jwlfusion/releases/latest/download/jwlFusion_windows_arm64.zip)
 
 ## Usage
-
-NOTE: The **macOS** binaries need to have all extended attributes (including the the Gatekeeper quarantine flag) removed:
-```
-> xattr -c jwlFusion
-> xattr -c libjwlCore.dylib
-```
 
 ```
 Usage: jwlFusion [-h | -v]  [-o:output] <original archive> <merge archive> [<merge archive>...]
@@ -39,6 +31,8 @@ Note that the archive provided later "over-writes" the previous, so the most "de
 
 ____
 [![Static Badge](https://img.shields.io/badge/releases-orange?style=plastic&logo=rss&logoColor=orange&color=black)](https://github.com/erykjj/jwlFusion/releases.atom)
+
+By using this software you agree to abide by the terms of its [License](https://github.com/erykjj/jwlFusion#License-1-ov-file).
 
 Feel free to get in touch and post any [issues and/or suggestions](https://github.com/erykjj/jwlFusion/issues).
 
