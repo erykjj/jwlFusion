@@ -46,7 +46,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          nimble install -y nimcrypto
+          nimble install -y nimcrypto@0.6.4
           rm -rf dist/*
           mkdir -p dist
           mkdir -p dist/lib

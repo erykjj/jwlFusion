@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies and compiler
         run: |
-          nimble install -y nimcrypto
+          nimble install -y nimcrypto@0.6.4
           sudo snap install zig --classic --beta
           nimble install zigcc
 
