@@ -3,6 +3,14 @@
 
 Commandline/terminal **merge utility** for `.jwlibrary` backups created by the *JW Library* app[^1]
 
+It merges:
+- Annotations (comment fields)
+- Bookmarks (up to limit of 10 for each publication)
+- Highlights
+- Notes (and tags)
+- Favorites
+- Playlists (and media files)
+
 Keep your originals until you've confirmed all is well ;-)
 
 ## Downloads
