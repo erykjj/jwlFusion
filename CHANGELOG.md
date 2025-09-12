@@ -9,6 +9,9 @@
 
 ### Changed
 
+- Updated jwlCore libs to v0.22.0
+  - more precise count of merged items
+
 ### Fixed
 
 ### Removed
