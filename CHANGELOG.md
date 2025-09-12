@@ -5,6 +5,7 @@
 ### Added
 
 - Show total number of merged (added/updated items)
+- Handle wrong file paths
 
 ### Changed
 
