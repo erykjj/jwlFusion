@@ -261,6 +261,6 @@ when isMainModule:
 
   echo &"\n{appName} (v{Version})\n"
   if main(inputFiles, outputFile):
-    echo &"\n{intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n"
+    echo &"\n   {intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n"
   else:
     echo &"\nErrors encountered! Process cancelled.\n"
