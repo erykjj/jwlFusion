@@ -4,6 +4,8 @@
 
 ### Added
 
+- Show total number of merged (added/updated items)
+
 ### Changed
 
 ### Fixed
