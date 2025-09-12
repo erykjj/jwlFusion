@@ -1,9 +1,9 @@
 const
   App = "jwlFusion"
+  Copyright = "© 2025 Eryk J."
   Version = "1.15.0"
 
-#[  © 2025 Eryk J.
-    This code is licensed under the Infiniti Noncommercial License.
+#[  This code is licensed under the Infiniti Noncommercial License.
     You may use and modify this code for personal, non-commercial purposes only.
     Sharing, distribution, or commercial use is strictly prohibited.
     See LICENSE for full terms.                                              ]#
@@ -252,7 +252,7 @@ when isMainModule:
     echo appHelp
     quit(0)
   if showVersion:
-    echo &"\n{App} v{Version}\n{$jwlCore}\n© 2025 Eryk J.\n"
+    echo &"\n{App} v{Version}\n{$jwlCore}\n{Copyright}\n"
     quit(0)
 
   if inputFiles.len < 2:
