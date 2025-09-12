@@ -1,6 +1,6 @@
 const
   App = "jwlFusion"
-  Version = "1.14.0"
+  Version = "1.15.0"
 
 #[  © 2025 Eryk J.
     This code is licensed under the Infiniti Noncommercial License.
@@ -41,6 +41,7 @@ let
 
 var
   spinIndex = 0
+  mergeCounter = 0
   fileCounter: int = 0
 
 
@@ -147,6 +148,7 @@ proc createArchive(source, destination, tz: string): string =
 
 
 proc progressIndicator(step: cint) {.cdecl.} =
+  mergeCounter += step
   stdout.write(spinner[spinIndex], "\b")
   stdout.flushFile()
   spinIndex = (spinIndex + 1) mod 4
@@ -259,6 +261,6 @@ when isMainModule:
 
   echo &"\n{appName} (v{Version})\n"
   if main(inputFiles, outputFile):
-    echo &"\nTime: {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n"
+    echo &"\n{intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n"
   else:
     echo &"\nErrors encountered! Process cancelled.\n"
