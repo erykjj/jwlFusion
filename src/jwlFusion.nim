@@ -92,18 +92,23 @@ proc zipUp(archive, dir: string) =
     echo "Failed to zip directory: ", dir
     raise
 
-proc zipDown(archive, dir: string) =
+proc zipDown(archive, dir: string): bool =
+  if not fileExists(archive):
+    echo "No such file: ", archive
+    return false
   let unzip = &"unzip -qj {archive} -d {dir}"
   if execShellCmd(unzip) != 0:
     echo "Failed to unzip archive: ", archive
-    raise
+    return false
+  return true
 
 
 proc unzipArchive(archive, tmpDir: string): string =
   let path = joinPaths(tmpDir, fmt"{App}_{fileCounter}")
   inc(fileCounter)
   makeDir(path)
-  zipDown(archive, path)
+  if not zipDown(archive, path):
+    return ""
 
   var manifest: JsonNode
   let manifestFile = joinPaths(path, "manifest.json")
