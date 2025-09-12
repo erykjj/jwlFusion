@@ -4,6 +4,16 @@
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Removed
+
+____
+## [v1.15.0] - 2025-09-12
+### Added
+
 - Show total number of merged (added/updated items)
 - Handle wrong file paths
 
@@ -12,11 +22,6 @@
 - Updated jwlCore libs to v0.22.0
   - more precise count of merged items
 
-### Fixed
-
-### Removed
-
-____
 ## [v1.14.0] - 2025-09-08
 ### Changed
 
@@ -224,6 +229,7 @@ ____
 - Initial release (beta)
 
 ____
+[v1.15.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.15.0
 [v1.14.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.14.0
 [v1.13.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.13.0
 [v1.12.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.12.0
