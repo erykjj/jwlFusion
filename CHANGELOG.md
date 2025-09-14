@@ -6,14 +6,17 @@
 
 ### Changed
 
-- Updated jwlCore libs to v0.23.0
-  - Authoritative/primary over-writes Notes in secondary, even if less recent
-
 ### Fixed
 
 ### Removed
 
 ____
+## [v1.16.0] - 2025-09-14
+### Changed
+
+- Updated jwlCore libs to v0.23.0
+  - Authoritative (primary) over-writes Notes in secondary, even if less recent
+
 ## [v1.15.0] - 2025-09-12
 ### Added
 
@@ -232,6 +235,7 @@ ____
 - Initial release (beta)
 
 ____
+[v1.16.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.16.0
 [v1.15.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.15.0
 [v1.14.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.14.0
 [v1.13.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.13.0
