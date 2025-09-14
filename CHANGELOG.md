@@ -6,6 +6,9 @@
 
 ### Changed
 
+- Updated jwlCore libs to v0.23.0
+  - Authoritative/primary over-writes Notes in secondary, even if less recent
+
 ### Fixed
 
 ### Removed
