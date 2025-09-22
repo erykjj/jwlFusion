@@ -6,16 +6,19 @@
 
 ### Changed
 
-- Updated jwlCore libs to v0.24.0
-  - Fix problematic TagMap table merging
-  - Don't merge empty InputFields
-  - Better exception handling/reporting
-
 ### Fixed
 
 ### Removed
 
 ____
+## [v1.17.0] - 2025-09-22
+### Changed
+
+- Updated jwlCore libs to v0.24.0
+  - Fix problematic TagMap table merging
+  - Don't merge empty InputFields
+  - Better exception handling/reporting
+
 ## [v1.16.0] - 2025-09-14
 ### Changed
 
@@ -240,6 +243,7 @@ ____
 - Initial release (beta)
 
 ____
+[v1.17.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.17.0
 [v1.16.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.16.0
 [v1.15.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.15.0
 [v1.14.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.14.0
