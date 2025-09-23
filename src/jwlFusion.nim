@@ -211,15 +211,14 @@ when isMainModule:
       
       Merge one or more '.jwlibrary' archives.
 
-      Usage: {appName} [-h | -v]  [-o:output] <original archive> <merge archive> [<merge archive>...]
+      Usage: {appName} [-h | -v] [-o:output] <original archive> <merge archive> [<merge archive>...]
 
       Options:
         -h, --help                        Show this help message and exit.
         -v, --version                     Show the version and exit.
         -o:<archive>, --output=<archive>  Specify the output archive (optional);
-                                            if not provided, creates archive
-                                            in working directory.
-      """, 3, "  ")
+                                            if not provided, creates archive in working directory.
+      """, 5, " ")
   var
     inputFiles: seq[string]
     outputFile = ""
@@ -257,15 +256,15 @@ when isMainModule:
     echo appHelp
     quit(0)
   if showVersion:
-    echo &"\n{App} v{Version}\n{$jwlCore}\n{Copyright}\n"
+    echo &"\n {App} v{Version}\n {$jwlCore}\n {Copyright}\n"
     quit(0)
 
   if inputFiles.len < 2:
     echo appHelp
     quit(1)
 
-  echo &"\n{appName} (v{Version})\n"
+  echo &"\n-- {appName} (v{Version}) " & "-".repeat(35) & "\n"
   if main(inputFiles, outputFile):
-    echo &"\n   {intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n"
+    echo &"\n   {intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n" & "_".repeat(58) & "\n"
   else:
     echo &"\nErrors encountered! Process cancelled.\n"
