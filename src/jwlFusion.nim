@@ -177,6 +177,7 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
   stdout.write(" ... ")
   let db1Path = unzipArchive(original, tmpDir)
   if db1Path == "":
+    styledEcho fgRed, &"Unpacking FAILED!"
     removeDir(tmpDir)
     return false
   styledEcho styleDim, fgYellow, "Unpacked"
@@ -191,17 +192,19 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
     stdout.write(" ... ")
     let db2Path = unzipArchive(archive, tmpDir)
     if db2Path == "":
+      styledEcho fgRed, &"Unpacking FAILED!"
       removeDir(tmpDir)
       return false
     status = mergeDatabase(db1Path.cstring, db2Path.cstring)
     msg = getLastResult()
     if status != 0:
-      echo &"FAILED!\n   --> {msg}"
+      styledEcho fgRed, &"FAILED!\n   --> {msg}"
       removeDir(tmpDir)
       return false
     else:
       styledEcho styleDim, fgYellow, $msg
   stdout.write(" = Merged:   ")
+  stdout.flushFile()
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
   styledEcho fgMagenta, filename
   removeDir(tmpDir)
