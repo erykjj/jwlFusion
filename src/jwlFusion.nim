@@ -280,7 +280,7 @@ when isMainModule:
   styledEcho(fgBlue, " " & "-".repeat(35) & "\n")
   if main(inputFiles, outputFile):
     styledEcho(fgYellow, &"\n   {intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)")
-    styledEcho(fgBlue, "_".repeat(58) & "\n")
+    styledEcho(fgBlue, "_".repeat(57) & "\n")
   else:
     echo &"\nErrors encountered! Process cancelled.\n"
   stdout.resetAttributes()
