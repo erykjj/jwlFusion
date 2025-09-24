@@ -4,6 +4,8 @@
 
 ### Added
 
+- Added color and adjusted output formatting
+
 ### Changed
 
 ### Fixed
