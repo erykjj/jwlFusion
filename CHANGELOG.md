@@ -4,8 +4,6 @@
 
 ### Added
 
-- Added color and adjusted output formatting
-
 ### Changed
 
 ### Fixed
@@ -13,6 +11,11 @@
 ### Removed
 
 ____
+## [v2.0.0] - 2025-09-24
+### Added
+
+- Added color and adjusted output formatting
+
 ## [v1.18.0] - 2025-09-23
 ### Changed
 
@@ -251,6 +254,7 @@ ____
 - Initial release (beta)
 
 ____
+[v2.0.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.0.0
 [v1.18.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.18.0
 [v1.17.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.17.0
 [v1.16.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.16.0
