@@ -1,7 +1,7 @@
 const
   App = "jwlFusion"
   Copyright = "© 2025 Eryk J."
-  Version = "1.18.0"
+  Version = "2.0.0"
 
 #[  This code is licensed under the Infiniti Noncommercial License.
     You may use and modify this code for personal, non-commercial purposes only.
@@ -10,7 +10,7 @@ const
 
 
 import
-  std/[json, os, random, strformat, strutils, times],
+  std/[json, os, random, strformat, strutils, terminal, times],
   nimcrypto, parseopt
 
 
@@ -170,18 +170,25 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
   let tmpDir = joinPaths(".", fmt".{App}_" & randomSuffix(10))
   makeDir(tmpDir)
   var parts = original.rsplit(".", 1)[0].split(sep)
-  stdout.write(fmt"   Original: {parts[^1]} ... ")
+  stdout.write("   Original: ")
+  setForegroundColor(fgMagenta)
+  stdout.write(parts[^1])
+  setForegroundColor(fgWhite)
+  stdout.write(" ... ")
   let db1Path = unzipArchive(original, tmpDir)
   if db1Path == "":
     removeDir(tmpDir)
     return false
-  echo "Unpacked"
+  styledEcho styleDim, fgYellow, "Unpacked"
   var status: cint
   var msg: cstring
   for archive in inputFiles[1..^1]:
     parts = archive.rsplit(".", 1)[0].split(sep)
-    stdout.write(fmt" + Merging:  {parts[^1]} ... ")
-    stdout.flushFile()
+    stdout.write(" + Merging:  ")
+    setForegroundColor(fgMagenta)
+    stdout.write(parts[^1])
+    setForegroundColor(fgWhite)
+    stdout.write(" ... ")
     let db2Path = unzipArchive(archive, tmpDir)
     if db2Path == "":
       removeDir(tmpDir)
@@ -193,11 +200,10 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
       removeDir(tmpDir)
       return false
     else:
-      echo msg
-  stdout.write(fmt" = Merged:   ")
-  stdout.flushFile()
+      styledEcho styleDim, fgYellow, $msg
+  stdout.write(" = Merged:   ")
   let filename = createArchive(db1Path, outArchive, $getZuluTime())
-  echo filename
+  styledEcho fgMagenta, filename
   removeDir(tmpDir)
   return true
 
@@ -256,15 +262,22 @@ when isMainModule:
     echo appHelp
     quit(0)
   if showVersion:
-    echo &"\n {App} v{Version}\n {$jwlCore}\n {Copyright}\n"
+    styledEcho fgBlue, &"\n {App} v{Version}"
+    styledEcho fgRed, &" {$jwlCore}"
+    echo &" {Copyright}\n"
     quit(0)
 
   if inputFiles.len < 2:
     echo appHelp
     quit(1)
 
-  echo &"\n-- {appName} (v{Version}) " & "-".repeat(35) & "\n"
+  setForegroundColor(fgBlue)
+  stdout.write("\n-- ")
+  stdout.write(&"{appName} (v{Version})")
+  styledEcho(fgBlue, " " & "-".repeat(35) & "\n")
   if main(inputFiles, outputFile):
-    echo &"\n   {intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)\n" & "_".repeat(58) & "\n"
+    styledEcho(fgYellow, &"\n   {intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)")
+    styledEcho(fgBlue, "_".repeat(58) & "\n")
   else:
     echo &"\nErrors encountered! Process cancelled.\n"
+  stdout.resetAttributes()
