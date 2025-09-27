@@ -267,7 +267,7 @@ when isMainModule:
     quit(0)
   if showVersion:
     styledEcho fgBlue, &"\n {App} v{Version}"
-    styledEcho fgRed, &" {$jwlCore}"
+    styledEcho fgYellow, &" {$jwlCore}"
     echo &" {Copyright}\n"
     quit(0)
 
