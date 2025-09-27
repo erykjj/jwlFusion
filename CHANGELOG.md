@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Adjusted error reporting
+
 ### Fixed
 
 ### Removed
