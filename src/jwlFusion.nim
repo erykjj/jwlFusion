@@ -1,7 +1,7 @@
 const
   App = "jwlFusion"
   Copyright = "© 2025 Eryk J."
-  Version = "2.0.0"
+  Version = "2.1.0"
 
 #[  This code is licensed under the Infiniti Noncommercial License.
     You may use and modify this code for personal, non-commercial purposes only.
@@ -148,7 +148,7 @@ proc createArchive(source, destination, tz: string): string =
     return destination
 
   except Exception as e:
-    echo &"ERROR creating archive:\n{e.msg}"
+    styledEcho fgRed, &"ERROR creating archive:\n{e.msg}"
     raise
 
 
@@ -240,7 +240,7 @@ when isMainModule:
       if key.endsWith(".jwlibrary"):
         inputFiles.add(key)
       else:
-        stderr.writeLine(fmt"Error: '{key}' is not a valid '.jwlibrary' archive name.")
+        styledEcho fgRed, &"\n Error: '{key}' is not a valid '.jwlibrary' archive name.\n"
         quit(1)
     of cmdLongOption, cmdShortOption:
       case key
@@ -250,13 +250,14 @@ when isMainModule:
         showVersion = true
       of "output", "o":
         if val == "":
-          stderr.writeLine("Error: Missing output archive name.")
+          styledEcho fgRed, "\n Error: Missing output archive name.\n"
           quit(1)
         outputFile = val
         if not outputFile.endsWith(".jwlibrary"):
           outputFile &= ".jwlibrary"
       else:
-        stderr.writeLine(fmt"Error: Unknown option '{key}'.")
+        styledEcho fgRed, &"\n Error: Unknown option '{key}'."
+        echo &" See '{appName} -h' for help.\n"
         quit(1)
     of cmdEnd:
       discard
@@ -271,16 +272,17 @@ when isMainModule:
     quit(0)
 
   if inputFiles.len < 2:
-    echo appHelp
+    styledEcho fgRed, "\n Error: provide at least two archives to merge."
+    echo &" See '{appName} -h' for help.\n"
     quit(1)
 
   setForegroundColor(fgBlue)
   stdout.write("\n-- ")
   stdout.write(&"{appName} (v{Version})")
-  styledEcho(fgBlue, " " & "-".repeat(35) & "\n")
+  echo " " & "-".repeat(35) & "\n"
   if main(inputFiles, outputFile):
-    styledEcho(fgYellow, &"\n   {intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)")
-    styledEcho(fgBlue, "_".repeat(57) & "\n")
+    styledEcho fgYellow, &"\n   {intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)"
   else:
-    echo &"\nErrors encountered! Process cancelled.\n"
+    styledEcho fgRed, "\n   Errors encountered! Process cancelled."
+  styledEcho(fgBlue, "_".repeat(57) & "\n")
   stdout.resetAttributes()
