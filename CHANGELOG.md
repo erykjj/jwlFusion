@@ -6,13 +6,16 @@
 
 ### Changed
 
-- Adjusted error reporting
-
 ### Fixed
 
 ### Removed
 
 ____
+## [v2.1.0] - 2025-09-27
+### Changed
+
+- Adjusted error reporting
+
 ## [v2.0.0] - 2025-09-24
 ### Added
 
@@ -256,6 +259,7 @@ ____
 - Initial release (beta)
 
 ____
+[v2.1.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.1.0
 [v2.0.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.0.0
 [v1.18.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.18.0
 [v1.17.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.17.0
