@@ -11,6 +11,13 @@
 ### Removed
 
 ____
+## [v2.2.0] - 2025-10-12
+### Changed
+
+- Updated jwlCore libs to v0.26.0
+  - Don't clean up (remove) empty *tagged* notes
+  - Reindex tag positions
+
 ## [v2.1.0] - 2025-09-27
 ### Changed
 
@@ -259,6 +266,7 @@ ____
 - Initial release (beta)
 
 ____
+[v2.2.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.2.0
 [v2.1.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.1.0
 [v2.0.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.0.0
 [v1.18.0]:https://github.com/erykjj/jwlFusion/releases/tag/v1.18.0
