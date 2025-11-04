@@ -1,7 +1,7 @@
 const
   App = "jwlFusion"
   Copyright = "© 2025 Eryk J."
-  Version = "2.2.0"
+  Version = "2.3.0"
 
 #[  This code is licensed under the Infiniti Noncommercial License.
     You may use and modify this code for personal, non-commercial purposes only.
@@ -279,10 +279,10 @@ when isMainModule:
   setForegroundColor(fgBlue)
   stdout.write("\n-- ")
   stdout.write(&"{appName} (v{Version})")
-  echo " " & "-".repeat(35) & "\n"
+  echo " " & "-".repeat(50) & "\n"
   if main(inputFiles, outputFile):
     styledEcho fgYellow, &"\n   {intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)"
   else:
     styledEcho fgRed, "\n   Errors encountered! Process cancelled."
-  styledEcho(fgBlue, "_".repeat(57) & "\n")
+  styledEcho(fgBlue, "_".repeat(72) & "\n")
   stdout.resetAttributes()
