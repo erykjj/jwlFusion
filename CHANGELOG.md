@@ -11,6 +11,12 @@
 ### Removed
 
 ____
+## [v2.3.0] - 2025-11-03
+### Changed
+
+- Updated jwlCore libs to v0.27.0
+  - Fix empty title in Bookmarks causing exception
+
 ## [v2.2.0] - 2025-10-12
 ### Changed
 
@@ -266,6 +272,7 @@ ____
 - Initial release (beta)
 
 ____
+[v2.3.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.3.0
 [v2.2.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.2.0
 [v2.1.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.1.0
 [v2.0.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.0.0
