@@ -44,7 +44,7 @@ By using this software you agree to abide by the terms of its [License](https://
 
 Feel free to get in touch and post any [issues and/or suggestions](https://github.com/erykjj/jwlFusion/issues).
 
-My other *JW Library* projects: [**JWLManager**](https://github.com/erykjj/jwlmanager), [**jwlFusion** (Android)](https://github.com/erykjj/jwlFusion-app) & **jwlFission**](https://github.com/erykjj/jwlFission-app)
+My other *JW Library* projects: [**JWLManager**](https://github.com/erykjj/jwlmanager), [**jwlFusion** (Android)](https://github.com/erykjj/jwlFusion-app) & [**jwlFission**](https://github.com/erykjj/jwlFission-app)
 ____
 #### Footnotes:
 [^1]: [JW Library](https://www.jw.org/en/online-help/jw-library/) is a registered trademark of *Watch Tower Bible and Tract Society of Pennsylvania*
