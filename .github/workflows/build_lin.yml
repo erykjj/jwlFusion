@@ -1,4 +1,4 @@
-name: 'Linux and Windows v1.1.0'
+name: 'Linux and Windows v1.1.1'
 
 on:
   workflow_call:
@@ -25,7 +25,7 @@ jobs:
       - name: Set up Nim
         uses: jiro4989/setup-nim-action@v2
         with:
-          nim-version: '2.2.0'
+          nim-version: '2.2.6'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies and compiler
