@@ -6,6 +6,10 @@
 
 ### Changed
 
+- Updated jwlCore libs to v0.28.0
+  - Fixed trim
+- Updated SQLite for Windows
+
 ### Fixed
 
 ### Removed
