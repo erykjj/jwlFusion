@@ -1,4 +1,4 @@
-name: 'macOS v1.2.1'
+name: 'macOS v1.3.0'
 
 on:
   workflow_call:
@@ -19,7 +19,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Cache Nim installation
         id: nim-cache
@@ -41,7 +41,7 @@ jobs:
       - name: Set up Nim
         uses: jiro4989/setup-nim-action@v2
         with:
-          nim-version: '2.2.6'
+          nim-version: '2.2.8'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Dependencies
@@ -64,7 +64,7 @@ jobs:
           tar -czvf dist/jwlFusion_macos.tar.gz -C dist jwlFusion libjwlCore.dylib
 
       - name: Upload binary
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: jwlFusion_macos.tar.gz
           path: dist/jwlFusion_macos.tar.gz

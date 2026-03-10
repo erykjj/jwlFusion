@@ -1,4 +1,4 @@
-name: 'Linux and Windows v1.1.1'
+name: 'Linux and Windows v1.3.0'
 
 on:
   workflow_call:
@@ -20,12 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Nim
         uses: jiro4989/setup-nim-action@v2
         with:
-          nim-version: '2.2.6'
+          nim-version: '2.2.8'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies and compiler
@@ -47,7 +47,7 @@ jobs:
           tar -czvf dist/jwlFusion_linux_x86_64.tgz -C dist jwlFusion libjwlCore.so
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: jwlFusion_linux_x86_64.tgz
           path: dist/jwlFusion_linux_x86_64.tgz
@@ -65,7 +65,7 @@ jobs:
           tar -czvf dist/jwlFusion_linux_arm64.tgz -C dist jwlFusion libjwlCore.so
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: jwlFusion_linux_arm64.tgz
           path: dist/jwlFusion_linux_arm64.tgz
@@ -83,7 +83,7 @@ jobs:
           zip -j dist/jwlFusion_windows_amd64.zip dist/jwlFusion.exe dist/jwlCore.dll dist/sqlite3_64.dll dist/zip.exe dist/unzip.exe dist/bzip2.dll
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: jwlFusion_windows_amd64.zip
           path: dist/jwlFusion_windows_amd64.zip
@@ -101,7 +101,7 @@ jobs:
           zip -j dist/jwlFusion_windows_arm64.zip dist/jwlFusion.exe dist/jwlCore.dll dist/sqlite3.dll
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: jwlFusion_windows_arm64.zip
           path: dist/jwlFusion_windows_arm64.zip
