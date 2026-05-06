@@ -1,7 +1,7 @@
 const
   App = "jwlFusion"
   Copyright = "© 2026 Eryk J."
-  Version = "2.4.0"
+  Version = "2.5.0"
 
 #[  This code is licensed under the Infiniti Noncommercial License.
     You may use and modify this code for personal, non-commercial purposes only.
@@ -136,6 +136,7 @@ proc createArchive(source, destination, tz: string): string =
     let hash = sha256File(dbFile)
     manifest["userDataBackup"]["hash"] = %hash
     manifest["userDataBackup"]["databaseName"] = %"userData.db"
+    manifest["userDataBackup"]["schemaVersion"] = %14
 
     var file = open(manifestFile, fmWrite)
     file.write($manifest)
