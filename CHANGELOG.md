@@ -4,18 +4,23 @@
 
 ### Added
 
-- Added --downgrade option to output in schema v14 (for JW Library < v15.8)
-
 ### Changed
-
-- Updated jwlCore libs to v0.31.1
-  - Default to schema v16
 
 ### Fixed
 
 ### Removed
 
 ____
+## [v2.6.0] - 2026-05-07
+### Added
+
+- Added `--downgrade` option to output in schema v14 (for JW Library < v15.8)
+
+### Changed
+
+- Updated jwlCore libs to v0.31.1
+  - Default to schema v16
+
 ## [v2.5.1] - 2026-05-06
 ### Changed
 
@@ -296,6 +301,7 @@ ____
 - Initial release (beta)
 
 ____
+[v2.6.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.6.0
 [v2.5.1]:https://github.com/erykjj/jwlFusion/releases/tag/v2.5.1
 [v2.5.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.5.0
 [v2.4.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.4.0
