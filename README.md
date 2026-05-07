@@ -29,11 +29,12 @@ Keep your originals until you've confirmed all is well ;-)
 Usage: jwlFusion [-h | -v]  [-o:output] <original archive> <merge archive> [<merge archive>...]
 
 Options:
-  -h, --help                        Show this help message and exit.
-  -v, --version                     Show the version and exit.
+  -h, --help                        Show this help message and exit
+  -v, --version                     Show the version and exit
+  --downgrade                       Downgrade output database to schema v14
   -o:<archive>, --output=<archive>  Specify the output archive (optional);
                                       if not provided, creates archive
-                                      in working directory.
+                                      in working directory
 ```
 Note that the archive provided later "over-writes" the previous, so the most "definitive" should be listed last. To illustrate, assume all archives have the same note but the note content has been modified in one of them. The last one will be the one that is used in the merged archive.
 
