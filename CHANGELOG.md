@@ -4,7 +4,12 @@
 
 ### Added
 
+- Added --downgrade option to output in schema v14 (for JW Library < v15.8)
+
 ### Changed
+
+- Updated jwlCore libs to v0.31.0
+  - Default to schema v16
 
 ### Fixed
 
@@ -14,7 +19,7 @@ ____
 ## [v2.5.1] - 2026-05-06
 ### Changed
 
-- Updated jwlCore libs to v0.31.0
+- Updated jwlCore libs to v0.30.1
   - Fix NULL Title
 
 ## [v2.5.0] - 2026-05-06
