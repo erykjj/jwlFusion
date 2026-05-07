@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Updated jwlCore libs to v0.31.0
+- Updated jwlCore libs to v0.31.1
   - Default to schema v16
 
 ### Fixed
