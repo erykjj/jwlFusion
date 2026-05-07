@@ -6,14 +6,17 @@
 
 ### Changed
 
-- Updated jwlCore libs to v0.30.0
-  - Downgrade schema to v14 to allow import/restore on older JW Library versions
-
 ### Fixed
 
 ### Removed
 
 ____
+## [v2.5.0] - 2026-05-06
+### Changed
+
+- Updated jwlCore libs to v0.30.0
+  - Downgrade schema to v14 to allow import/restore on older JW Library versions
+
 ## [v2.4.0] - 2026-03-10
 ### Changed
 
@@ -282,6 +285,7 @@ ____
 - Initial release (beta)
 
 ____
+[v2.5.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.5.0
 [v2.4.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.4.0
 [v2.3.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.3.0
 [v2.2.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.2.0
