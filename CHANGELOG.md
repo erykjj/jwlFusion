@@ -11,6 +11,12 @@
 ### Removed
 
 ____
+## [v2.5.1] - 2026-05-06
+### Changed
+
+- Updated jwlCore libs to v0.31.0
+  - Fix NULL Title
+
 ## [v2.5.0] - 2026-05-06
 ### Changed
 
@@ -285,6 +291,7 @@ ____
 - Initial release (beta)
 
 ____
+[v2.5.1]:https://github.com/erykjj/jwlFusion/releases/tag/v2.5.1
 [v2.5.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.5.0
 [v2.4.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.4.0
 [v2.3.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.3.0
