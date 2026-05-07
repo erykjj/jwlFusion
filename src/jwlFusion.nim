@@ -1,7 +1,7 @@
 const
   App = "jwlFusion"
   Copyright = "© 2026 Eryk J."
-  Version = "2.5.1"
+  Version = "2.6.0"
 
 #[  This code is licensed under the Infiniti Noncommercial License.
     You may use and modify this code for personal, non-commercial purposes only.
@@ -45,7 +45,7 @@ var
   fileCounter: int = 0
 
 
-proc mergeDatabase(path1, path2: cstring): cint {.cdecl, dynlib: libName, importc.}
+proc mergeDatabase(path1, path2: cstring, downgrade: bool): cint {.cdecl, dynlib: libName, importc.}
 proc getCoreVersion(): cstring {.cdecl, dynlib: libName, importc.}
 proc getZuluTime(): cstring {.cdecl, dynlib: libName, importc.}
 proc getLastResult(): cstring {.cdecl, dynlib: libName, importc.}
@@ -121,8 +121,9 @@ proc unzipArchive(archive, tmpDir: string): string =
   echo "Old schema version!"
   return ""
 
-proc createArchive(source, destination, tz: string): string =
+proc createArchive(source, destination, tz: string, downgrade: bool): string =
   try:
+    let schemaVersion = if downgrade: 14 else: 16
     let parts = destination.split(sep) 
     var manifest: JsonNode
     let manifestFile = joinPaths(source, "manifest.json")
@@ -136,7 +137,7 @@ proc createArchive(source, destination, tz: string): string =
     let hash = sha256File(dbFile)
     manifest["userDataBackup"]["hash"] = %hash
     manifest["userDataBackup"]["databaseName"] = %"userData.db"
-    manifest["userDataBackup"]["schemaVersion"] = %14
+    manifest["userDataBackup"]["schemaVersion"] = %int(schemaVersion)
 
     var file = open(manifestFile, fmWrite)
     file.write($manifest)
@@ -160,7 +161,7 @@ proc progressIndicator(step: cint) {.cdecl.} =
   spinIndex = (spinIndex + 1) mod 4
 
 
-proc main(inputFiles: seq[string], outputFile: string): bool =
+proc main(inputFiles: seq[string], outputFile: string, downgrade: bool = false): bool =
   setProgressCallback(progressIndicator)
   let original = inputFiles[0]
   let workDir = "."
@@ -196,7 +197,7 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
       styledEcho fgRed, &"Unpacking FAILED!"
       removeDir(tmpDir)
       return false
-    status = mergeDatabase(db1Path.cstring, db2Path.cstring)
+    status = mergeDatabase(db1Path.cstring, db2Path.cstring, downgrade)
     msg = getLastResult()
     if status != 0:
       styledEcho fgRed, &"FAILED!\n   --> {msg}"
@@ -206,7 +207,7 @@ proc main(inputFiles: seq[string], outputFile: string): bool =
       styledEcho styleDim, fgYellow, $msg
   stdout.write(" = Merged:   ")
   stdout.flushFile()
-  let filename = createArchive(db1Path, outArchive, $getZuluTime())
+  let filename = createArchive(db1Path, outArchive, $getZuluTime(), downgrade)
   styledEcho fgMagenta, filename
   removeDir(tmpDir)
   return true
@@ -226,6 +227,7 @@ when isMainModule:
       Options:
         -h, --help                        Show this help message and exit.
         -v, --version                     Show the version and exit.
+        --downgrade                       Downgrade output database to schema v14.
         -o:<archive>, --output=<archive>  Specify the output archive (optional);
                                             if not provided, creates archive in working directory.
       """, 5, " ")
@@ -234,6 +236,7 @@ when isMainModule:
     outputFile = ""
     showHelp = false
     showVersion = false
+    downgrade = false
 
   for kind, key, val in getOpt():
     case kind
@@ -249,6 +252,8 @@ when isMainModule:
         showHelp = true
       of "version", "v":
         showVersion = true
+      of "downgrade":
+        downgrade = true
       of "output", "o":
         if val == "":
           styledEcho fgRed, "\n Error: Missing output archive name.\n"
@@ -281,7 +286,7 @@ when isMainModule:
   stdout.write("\n-- ")
   stdout.write(&"{appName} (v{Version})")
   echo " " & "-".repeat(50) & "\n"
-  if main(inputFiles, outputFile):
+  if main(inputFiles, outputFile, downgrade):
     styledEcho fgYellow, &"\n   {intToStr(mergeCounter).insertSep(',')} items inserted/updated in {epochTime() - t1:.1f}s (CPU: {cpuTime() - t:.1f}s)"
   else:
     styledEcho fgRed, "\n   Errors encountered! Process cancelled."
