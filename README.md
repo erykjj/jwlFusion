@@ -1,6 +1,6 @@
 <img src="res/dbFusion_wide.png" width=100%>
 
-[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/erykjj/jwlfusion/total)](https://github.com/erykjj/jwlfusion/releases/latest)
+[![Static Badge](https://img.shields.io/badge/releases-orange?logo=rss&logoColor=orange&color=black)](https://github.com/erykjj/jwlFusion/releases.atom) [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/erykjj/jwlfusion/total)](https://github.com/erykjj/jwlfusion/releases/latest)
 
 Commandline/terminal **merge utility** for `.jwlibrary` backups created by the *JW Library* app[^1]
 
@@ -40,8 +40,6 @@ Options:
 Note that the archive provided later "over-writes" the previous, so the most "definitive" should be listed last. To illustrate, assume all archives have the same note but the note content has been modified in one of them. The last one will be the one that is used in the merged archive.
 
 ____
-[![Static Badge](https://img.shields.io/badge/releases-orange?style=plastic&logo=rss&logoColor=orange&color=black)](https://github.com/erykjj/jwlFusion/releases.atom)
-
 Feel free to get in touch and post any [issues and/or suggestions](https://github.com/erykjj/jwlFusion/issues).
 
 My other *JW Library* projects: [**JWLManager**](https://github.com/erykjj/jwlmanager), [**jwlFusion** (Android)](https://github.com/erykjj/jwlFusion-app) & [**jwlFission**](https://github.com/erykjj/jwlFission-app)
