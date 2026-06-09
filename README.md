@@ -1,5 +1,6 @@
 <img src="res/dbFusion_wide.png" width=100%>
-<img src="res/logo_tm.png">
+
+[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/erykjj/jwlfusion/total)](https://github.com/erykjj/jwlfusion/releases/latest)
 
 Commandline/terminal **merge utility** for `.jwlibrary` backups created by the *JW Library* app[^1]
 
