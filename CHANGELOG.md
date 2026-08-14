@@ -13,6 +13,7 @@
 ____
 ## [v2.8.0] - 2026-08-14
 ### Changed
+
 - Updated jwlCore libs to v0.33.0
   - Fixed two table merges
 
