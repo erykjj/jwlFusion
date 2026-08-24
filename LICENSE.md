@@ -1,14 +1,21 @@
-# Infiniti Noncommercial License v1.2
+# Infiniti Noncommercial License v2
+
+## Definitions
+“Commercial purposes” means any use intended for or directed toward commercial advantage or monetary compensation.
 
 ## Grant of License
-The licensor grants you a non-exclusive, non-transferable, perpetual license to:
+The licensor grants you a non-exclusive, perpetual license to:
 - Use the software for personal, non-commercial purposes.
 - Modify the provided source code for personal, non-commercial use only.
 - Use any binary releases (e.g., APK files) for personal, non-commercial purposes.
+- Share unmodified copies of the original software, provided you:
+  - include this license and all copyright notices.
+  - do not charge for the software itself.
+  - do not imply endorsement by the licensor.
 
 ## Restrictions
 You are expressly PROHIBITED from:
-- sharing, distributing, publishing, or otherwise making available the original software or any derivative works, in whole or in part, to any third party.
+- sharing, distributing, publishing, or otherwise making available any derivative works, in whole or in part, to any third party.
 - using the software, source code, or any derivative works for commercial purposes.
 
 ## Ownership
