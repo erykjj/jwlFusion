@@ -11,6 +11,12 @@
 ### Removed
 
 ____
+## [v2.9.0] - 2026-11-23
+### Changed
+
+- Updated jwlCore libs to v1.0.0
+  - Added guard for archives with missing media
+
 ## [v2.8.0] - 2026-08-14
 ### Changed
 
@@ -319,6 +325,7 @@ ____
 - Initial release (beta)
 
 ____
+[v2.9.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.9.0
 [v2.8.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.8.0
 [v2.7.1]:https://github.com/erykjj/jwlFusion/releases/tag/v2.7.1
 [v2.7.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.7.0
