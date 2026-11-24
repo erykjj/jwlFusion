@@ -1,7 +1,7 @@
 const
   App = "jwlFusion"
   Copyright = "© 2026 Eryk J."
-  Version = "2.10.0"
+  Version = "2.11.0"
 
 #[  This code is licensed under the Infiniti Noncommercial License v2.
     You may use and modify this code for personal, non-commercial purposes only.
