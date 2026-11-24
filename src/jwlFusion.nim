@@ -1,7 +1,7 @@
 const
   App = "jwlFusion"
   Copyright = "© 2026 Eryk J."
-  Version = "2.9.0"
+  Version = "2.10.0"
 
 #[  This code is licensed under the Infiniti Noncommercial License v2.
     You may use and modify this code for personal, non-commercial purposes only.
@@ -172,6 +172,7 @@ proc main(inputFiles: seq[string], outputFile: string, downgrade: bool = false):
   let tmpDir = joinPaths(".", fmt".{App}_" & randomSuffix(10))
   makeDir(tmpDir)
   var parts = original.rsplit(".", 1)[0].split(sep)
+  setForegroundColor(fgWhite)
   stdout.write("   Original: ")
   setForegroundColor(fgMagenta)
   stdout.write(parts[^1])
