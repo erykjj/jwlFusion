@@ -11,6 +11,12 @@
 ### Removed
 
 ____
+## [v2.11.0] - 2026-11-23
+### Changed
+
+- Updated jwlCore libs to v1.1.0
+  - Thread/memory tweaks
+
 ## [v2.10.0] - 2026-11-23
 ### Changed
 
@@ -325,6 +331,7 @@ ____
 - Initial release (beta)
 
 ____
+[v2.11.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.11.0
 [v2.10.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.10.0
 [v2.8.0]:https://github.com/erykjj/jwlFusion/releases/tag/v2.8.0
 [v2.7.1]:https://github.com/erykjj/jwlFusion/releases/tag/v2.7.1
